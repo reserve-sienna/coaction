@@ -20,4 +20,13 @@ def tasks():
         return jsonify({"status": "success",
                         "data": result.data})
     else:
-        return jsonify({"status": "fail", "data": { "title": "There are no tasks  "}}), 400
+        return jsonify({"status": "fail", "data": {"title": "There are no tasks  "}}), 400
+
+
+@coaction.route("/api/task/<int:id>", methods=["GET"])
+def get_task(id):
+    task = Task.query.get_or_404(id)
+    serializer = TaskSchema()
+    result = serializer.dump(task)
+    return jsonify({"status": "success",
+                    "data": result.data})
