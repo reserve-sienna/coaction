@@ -22,21 +22,17 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
   }
 
   return {
+      getTasks: function () {
+      return get('/api/tasks');
+      },
 
-       getTasks: function () {
-         return get('/api/tasks');
-       },
-    // getShareList: function () {
-    //   return get('/api/res');
-    // },
-    //
       getTask: function (id) {
       return get('/api/task/' + id);
+      },
+
+      addTask: function (task) {
+      return post('/api/res', task);
       }
-    //
-    // addShare: function (share) {
-    //   return post('/api/res', share);
-    // },
     //
     // deleteShare: function (id) {
     //   return remove('/api/res/' + id);
