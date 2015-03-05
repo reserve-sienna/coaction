@@ -1,0 +1,20 @@
+<nav class = "tasks-nav">
+  <h1 class="task-header">Tasks</h1>
+</nav>
+
+<ul>
+  <li class="task-li" ng-repeat="task in vm.tasks">
+    <input type="checkbox" class="Completed">
+    <div class="task-title">
+      {{task.description}}
+    </div>
+    <div class="date">
+      {{task.due_date}}
+    </div>
+    </div>
+    <div
+     <button class="edit">Edit</button>
+  </li>
+
+
+</ul>
