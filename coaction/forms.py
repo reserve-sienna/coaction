@@ -17,12 +17,12 @@ class TaskForm(APIForm):
     due_date = DateField('due date', format='%Y-%m-%d')
 
 
-class LoginForm(Form):
+class LoginForm(APIForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
 
 
-class RegistrationForm(Form):
+class RegistrationForm(APIForm):
     name = StringField('Name', validators=[DataRequired()])
     email = EmailField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = StringField('Password', validators=[DataRequired()])
