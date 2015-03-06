@@ -17,8 +17,17 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
   self.tasks = tasks;
 
-  self.showTasks = function () {
-    tasksService.getTasks();
+  self.removeTask = function (id) {
+    tasksService.removeTasks(id).then(function () {
+    for (var i =0; i < self.tasks.length; ++i) {
+      if (self.tasks[i].id === id) {
+      self.tasks.splice(i, 1);
+      break;
+      }
+    }
+  }).catch(function () {
+    alert('failed to delete');
+  })
   };
 
 

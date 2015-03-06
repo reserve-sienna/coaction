@@ -1,20 +1,28 @@
 <nav class = "tasks-nav">
   <h1 class="task-header">Tasks</h1>
+  <a class="add-task-button" href="#/tasks/new">+ Add New Task</a>
 </nav>
 
-<ul>
+<ul class="tasks-ul">
   <li class="task-li" ng-repeat="task in vm.tasks">
-    <input type="checkbox" class="Completed">
-    <div class="task-title">
-      {{task.description}}
+    <div class="color-box">
+      <button ng-click="task.status = 'new'" ng-class="{ active: task.status === 'new'}" class="new-task-button">New</button>
+      <button ng-click="task.status = 'doing'" ng-class="{ active: task.status === 'doing'}" class="doing-task-button">Doing</button>
+      <button ng-click="task.status = 'done'" ng-class="{ active: task.status === 'done'}" class="done-task-button">Done</button>
     </div>
-    <div class="date">
-      {{task.due_date}}
-    </div>
-    </div>
-    <div
-     <button class="edit">Edit</button>
+    <!-- <label class="checkbox-label"> -->
+    <!-- <input type="checkbox" class="completed"> -->
+    <!-- </label> -->
+
+    <span class="task-title">
+      {{task.description | ellipsis: 16}}
+    </span>
+    <br>
+    <span class="date">
+      {{task.due_date | date:'EEEE, MMM d'}}
+    </span>
+    <!-- <div class="status">{{task.status}}</div> -->
+
+     <!-- <button class="edit">a</button> -->
   </li>
-
-
 </ul>

@@ -27,8 +27,6 @@ def make_shell_context():
     return dict(app=app, db=db)
 
 
-
-
 @manager.command
 def createdb():
     """Creates the database with all model tables. 
