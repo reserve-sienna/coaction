@@ -221,3 +221,6 @@ nav a {
 
 .edit, .status {
   display: inline-block; }
+
+.remove-button {
+  float: right; }
