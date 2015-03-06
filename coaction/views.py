@@ -41,8 +41,45 @@ def add_task():
 
 @coaction.route("/api/task/<int:id>", methods=["GET"])
 def get_task(id):
-    task = Task.query.get_or_404(id)
-    serializer = TaskSchema()
-    result = serializer.dump(task)
-    return jsonify({"status": "success",
+    task = Task.query.get(id)
+    if task:
+        serializer = TaskSchema()
+        result = serializer.dump(task)
+        return jsonify({"status": "success",
+                        "data": result.data})
+    else:
+        return jsonify({"status": "fail", "data": {"title": "Could not find task."}}), 400
+
+
+@coaction.route("/api/task/<int:id>", methods=["PUT"])
+def update_task(id):
+    task = Task.query.get(id)
+    task_data = request.get_json()
+    form = TaskForm(data=task_data)
+    if form.validate():
+        form.populate_obj(task)
+        db.session.commit()
+        serializer = TaskSchema()
+        result = serializer.dump(task)
+        return jsonify({"status": "success",
                     "data": result.data})
+    else:
+        return jsonify({"status": "fail", "data": {"title": "Could not update."}}), 400
+
+
+@coaction.route("/api/task/<int:id>", methods=["DELETE"])
+def delete_task(id):
+    task = Task.query.get(id)
+    if task:
+        db.session.delete(task)
+        db.session.commit()
+        serializer = TaskSchema()
+        result = serializer.dump(task)
+        return jsonify({"status": "success",
+                        "data": result.data})
+    else:
+        return jsonify({"status": "fail", "data": {"title": "Could not delete."}}), 400
+
+
+
+
