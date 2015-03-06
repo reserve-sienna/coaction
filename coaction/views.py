@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, jsonify, request
+from flask import Blueprint , jsonify, request
 from .models import Task, TaskSchema
 from .forms import TaskForm
 from .extensions import db
@@ -11,7 +11,6 @@ def index():
     return coaction.send_static_file("index.html")
 
 
-## Add your API views here
 @coaction.route("/api/tasks", methods=["GET"])
 def tasks():
     tasks = Task.query.all()
