@@ -7,21 +7,26 @@ app.config(['$routeProvider', function($routeProvider) {
 
   $routeProvider.when('/tasks/new', routeDefinition);
 }])
-.controller('NewTaskCtrl', ['Task', function (Task) {
+.controller('NewTaskCtrl', ['$location', 'Task', 'tasksService', function ($location, Task, tasksService) {
 
   var self = this;
 
-  self.newTask = Task();
+  self.task = Task();
+
+  self.goToTasks = function () {
+    $location.path('/tasks');
+  }
 
   self.addTask = function () {
 
+  tasksService.addTask(self.task).then(self.goToTasks);
     // Make a copy of the 'newTask' object
-    var task = Task(self.newTask);
+    // var task = Task(self.newTask);
 
-    // Add the task to our service
-    tasksService.addTask(task);
-
-    self.newTask = Task();
+    // // Add the task to our service
+    // tasksService.addTask(task);
+    //
+    // self.newTask = Task();
 
   };
 
