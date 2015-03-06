@@ -95,9 +95,7 @@ def login():
     form = LoginForm(data=user_data)
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        print(user.email)
         if user and user.check_password(form.password.data):
-            print(user.email)
             login_user(user)
             serializer = UserSchema()
             result = serializer.dump(user)
@@ -119,7 +117,6 @@ def logout():
 def register():
     user_data = request.get_json()
     form = RegistrationForm(data=user_data)
-    print(form.data)
     if form.validate():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
