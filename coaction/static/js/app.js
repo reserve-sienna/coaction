@@ -21,26 +21,15 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/tasks/new', routeDefinition);
 }])
 .controller('NewTaskCtrl', ['$location', 'Task', 'tasksService', function ($location, Task, tasksService) {
-
   var self = this;
-
   self.task = Task();
 
   self.goToTasks = function () {
     $location.path('/tasks');
-  }
+  };
 
   self.addTask = function () {
-
-  tasksService.addTask(self.task).then(self.goToTasks);
-    // Make a copy of the 'newTask' object
-    // var task = Task(self.newTask);
-
-    // // Add the task to our service
-    // tasksService.addTask(task);
-    //
-    // self.newTask = Task();
-
+    tasksService.addTask(self.task).then(self.goToTasks);
   };
 
 }]);
@@ -73,7 +62,6 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
   function processAjaxPromise(p) {
     return p.then(function (result) {
       var data = result.data;
-      console.log(data);
       return data.data;
     })
     .catch(function (error) {
@@ -87,7 +75,7 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
       },
 
       getTask: function (id) {
-      return get('/api/task/' + id);
+      return get('/api/task' + id);
       },
 
       addTask: function (task) {

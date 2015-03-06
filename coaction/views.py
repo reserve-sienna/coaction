@@ -27,8 +27,11 @@ def tasks():
 @coaction.route("/api/tasks", methods=["POST"])
 def add_task():
     task_data = request.get_json()
+    print(task_data)
     form = TaskForm(data=task_data)
+    print(form.data)
     if form.validate():
+        print("HI")
         task = Task(**form.data)
         db.session.add(task)
         db.session.commit()
@@ -79,7 +82,3 @@ def delete_task(id):
                         "data": result.data})
     else:
         return jsonify({"status": "fail", "data": {"title": "Could not delete."}}), 400
-
-
-
-

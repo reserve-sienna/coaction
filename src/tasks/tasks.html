@@ -6,7 +6,7 @@
 <ul class="tasks-ul">
   <li class="task-li" ng-repeat="task in vm.tasks">
     <div class="color-box">
-      <button ng-click="status = task.status = new" ng-class="{ active: task.status === new}" class="new-task-button">New</button>
+      <button ng-click="task.status = new" ng-class="{ active: task.status === new}" class="new-task-button">New</button>
       <button ng-click="status = doing" ng-class="{ active: task.status === doing}" class="doing-task-button">Doing</button>
       <button ng-click="status = done" ng-class="{ active: task.status === done}" class="done-task-button">Done</button>
     </div>
