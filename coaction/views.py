@@ -97,6 +97,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         print(user.email)
         if user and user.check_password(form.password.data):
+            print(user.email)
             login_user(user)
             serializer = UserSchema()
             result = serializer.dump(user)
@@ -110,12 +111,8 @@ def login():
 
 @coaction.route("/api/logout", methods=["POST"])
 def logout():
-    user = current_user
     logout_user()
-    serializer = UserSchema()
-    result = serializer.dump(user)
-    return jsonify({"status": "success",
-                    "data": result.data})
+    return jsonify({"status": "success"})
 
 
 @coaction.route("/api/register", methods=["POST"])
