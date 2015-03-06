@@ -37,7 +37,7 @@ table {
   display: none !important; }
 
 body {
-  font-family: sans-serif;
+  font-family: 'Droid Sans', sans-serif;
   line-height: 1.4em;
   background: white;
   color: #444; }
@@ -103,7 +103,7 @@ button {
   margin-bottom: 1.5em; }
 
 .main-nav {
-  background: #6067b0;
+  background: #7d3800;
   color: #FFF;
   padding: 0 2em; }
 
@@ -132,6 +132,7 @@ button {
 .main-nav-link.active {
   background: #4d5196; }
 
+<<<<<<< HEAD
 body {
   background: #fce9dc; }
 
@@ -220,3 +221,7 @@ nav a {
 
 .edit, .status {
   display: inline-block; }
+=======
+.title {
+  font-family: 'Syncopate', sans-serif; }
+>>>>>>> e5c0668ccb2fbc2d97ee669b1a67e4337eb8b861
