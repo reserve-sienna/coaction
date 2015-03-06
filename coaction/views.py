@@ -83,8 +83,7 @@ def delete_task(id):
                         "data": result.data})
     else:
         return jsonify({"status": "fail", "data": {"title": "Could not delete."}}), 400
-<<<<<<< HEAD
-=======
+
 
 
 @coaction.route("/api/login", methods=["POST"])
@@ -130,5 +129,3 @@ def register():
             result = serializer.dump(user)
             return jsonify({"status": "success",
                     "data": result.data})
-
->>>>>>> 06bd1ae17162cfa7292d8b98073de2ba4a8484e4

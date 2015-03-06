@@ -163,7 +163,6 @@ nav a {
   margin-left: 1em; }
 
 .task-li {
-  border: 1px solid black;
   width: 14em;
   padding: 1em;
   margin: .5em 3em .5em .5em;
@@ -196,11 +195,10 @@ nav a {
     width: 100%;
     cursor: pointer;
     font-size: .7em;
-    border: 1px solid black;
-    border-radius: .1em; }
+    border-radius: .1em;
+    outline: none; }
   .color-box .active {
     margin-left: -15px;
-    border: 2px solid yellow;
     border-radius: .3em; }
 
 .new-task-button {

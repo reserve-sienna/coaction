@@ -32,12 +32,11 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
       },
 
       addTask: function (task) {
-      console.log(task, "hello");
       return post('/api/tasks', task);
-      }
-    //
-    // deleteShare: function (id) {
-    //   return remove('/api/res/' + id);
-    // }
+    },
+
+      removeTask: function (id) {
+      return remove('/api/task/' + id);
+    }
   };
 }]);

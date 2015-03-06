@@ -79,13 +79,12 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
       },
 
       addTask: function (task) {
-      console.log(task, "hello");
       return post('/api/tasks', task);
-      }
-    //
-    // deleteShare: function (id) {
-    //   return remove('/api/res/' + id);
-    // }
+    },
+
+      removeTask: function (id) {
+      return remove('/api/task/' + id);
+    }
   };
 }]);
 
@@ -120,6 +119,19 @@ app.config(['$routeProvider', function($routeProvider) {
 
   var self = this;
   self.tasks = tasks;
+
+  self.removeTask = function (id) {
+    tasksService.removeTasks(id).then(function () {
+    for (var i =0; i < self.tasks.length; ++i) {
+      if (self.tasks[i].id === id) {
+      self.tasks.splice(i, 1);
+      break;
+      }
+    }
+  }).catch(function () {
+    alert('failed to delete');
+  })
+  };
 
 
 }]);
