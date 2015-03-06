@@ -12,13 +12,13 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/tasks', routeDefinition);
 }])
-.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', function ($location, tasks, shareService) {
+.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', function ($location, tasks, tasksService) {
 
   var self = this;
   self.tasks = tasks;
 
   self.removeTask = function (id) {
-    tasksService.removeTasks(id).then(function () {
+    tasksService.removeTask(id).then(function () {
     for (var i =0; i < self.tasks.length; ++i) {
       if (self.tasks[i].id === id) {
       self.tasks.splice(i, 1);
