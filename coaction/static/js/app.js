@@ -91,9 +91,9 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
       return remove('/api/task/' + id);
     }
 
-      updateData: function (id) {
-      return put('api/task/' + id);  
-      }
+    //   updateData: function (id, task) {
+    //   return put('/api/task/' + id, task);
+    // }
   };
 }]);
 
