@@ -21,26 +21,15 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/tasks/new', routeDefinition);
 }])
 .controller('NewTaskCtrl', ['$location', 'Task', 'tasksService', function ($location, Task, tasksService) {
-
   var self = this;
-
   self.task = Task();
 
   self.goToTasks = function () {
     $location.path('/tasks');
-  }
+  };
 
   self.addTask = function () {
-
-  tasksService.addTask(self.task).then(self.goToTasks);
-    // Make a copy of the 'newTask' object
-    // var task = Task(self.newTask);
-
-    // // Add the task to our service
-    // tasksService.addTask(task);
-    //
-    // self.newTask = Task();
-
+    tasksService.addTask(self.task).then(self.goToTasks);
   };
 
 }]);
@@ -73,7 +62,6 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
   function processAjaxPromise(p) {
     return p.then(function (result) {
       var data = result.data;
-      console.log(data);
       return data.data;
     })
     .catch(function (error) {
@@ -87,17 +75,16 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
       },
 
       getTask: function (id) {
-      return get('/api/task/' + id);
+      return get('/api/task' + id);
       },
 
       addTask: function (task) {
-      console.log(task, "hello");
       return post('/api/tasks', task);
-      }
-    //
-    // deleteShare: function (id) {
-    //   return remove('/api/res/' + id);
-    // }
+    },
+
+      removeTask: function (id) {
+      return remove('/api/task/' + id);
+    }
   };
 }]);
 
@@ -132,6 +119,19 @@ app.config(['$routeProvider', function($routeProvider) {
 
   var self = this;
   self.tasks = tasks;
+
+  self.removeTask = function (id) {
+    tasksService.removeTasks(id).then(function () {
+    for (var i =0; i < self.tasks.length; ++i) {
+      if (self.tasks[i].id === id) {
+      self.tasks.splice(i, 1);
+      break;
+      }
+    }
+  }).catch(function () {
+    alert('failed to delete');
+  })
+  };
 
 
 }]);

@@ -9,6 +9,8 @@ body {
 }
 
 
+
+
 .tasks-ul {
   height: 35em;
   display: flex;
@@ -31,7 +33,7 @@ nav {
 }
 
 .task-li {
-  border: 1px solid black;
+  // border: 1px solid black;
   width: 14em;
   padding: 1em;
   margin: .5em 3em .5em .5em;
@@ -68,13 +70,14 @@ nav {
     width: 100%;
     cursor: pointer;
     font-size: .7em;
-    border: 1px solid black;
+    // border: 1px solid black;
     border-radius: .1em;
+    outline: none;
   }
 
   .active {
      margin-left: -15px;
-     border: 2px solid yellow;
+    //  border: 2px solid yellow;
      border-radius: .3em;
   }
 }
