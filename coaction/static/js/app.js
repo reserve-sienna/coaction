@@ -27,7 +27,9 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
 
   function processAjaxPromise(p) {
     return p.then(function (result) {
-      return result.data;
+      var data = result.data;
+      console.log(data);
+      return data.data;
     })
     .catch(function (error) {
       $log.log(error);
@@ -35,27 +37,36 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
   }
 
   return {
+      getTasks: function () {
+      return get('/api/tasks');
+      },
 
-       getTasks: function () {
-         return get('/api/tasks');
-       },
-    // getShareList: function () {
-    //   return get('/api/res');
-    // },
-    //
       getTask: function (id) {
       return get('/api/task/' + id);
+      },
+
+      addTask: function (task) {
+      return post('/api/res', task);
       }
-    //
-    // addShare: function (share) {
-    //   return post('/api/res', share);
-    // },
     //
     // deleteShare: function (id) {
     //   return remove('/api/res/' + id);
     // }
   };
 }]);
+
+//making a filter
+//$filter('filter') (array, expression, comparator)
+app.filter('ellipsis', function(){
+  return function (input, num) {
+    if(input.length > num ) {
+      var newInputArea = input.slice(0, num) + '...';
+      return newInputArea;
+    } else {
+      return input;
+    }
+};
+});
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -75,6 +86,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
   var self = this;
   self.tasks = tasks;
+
 
 }]);
 

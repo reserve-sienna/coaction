@@ -17,9 +17,5 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
   self.tasks = tasks;
 
-  self.showTasks = function () {
-    tasksService.getTasks();
-  };
-
 
 }]);
