@@ -1,7 +1,7 @@
 from flask import Blueprint, flash, jsonify, request
 from .models import Task, TaskSchema, User, UserSchema
 from .forms import TaskForm, LoginForm, RegistrationForm
-from .extensions import db
+from .extensions import db, login_manager
 from flask.ext.login import login_user, logout_user, current_user
 
 
@@ -23,7 +23,7 @@ def tasks():
         return jsonify({"status": "success",
                         "data": result.data})
     else:
-        return jsonify({"status": "fail", "data": {"title": "There are no tasks  "}}), 400
+        return jsonify({"status": "fail", "data": {"title": "There are no tasks  "}}), 404
 
 
 @coaction.route("/api/tasks", methods=["POST"])
@@ -51,23 +51,26 @@ def get_task(id):
         return jsonify({"status": "success",
                         "data": result.data})
     else:
-        return jsonify({"status": "fail", "data": {"title": "Could not find task."}}), 400
+        return jsonify({"status": "fail", "data": {"title": "Could not find task."}}), 404
 
 
 @coaction.route("/api/task/<int:id>", methods=["PUT"])
 def update_task(id):
     task = Task.query.get(id)
-    task_data = request.get_json()
-    form = TaskForm(data=task_data)
-    if form.validate():
-        form.populate_obj(task)
-        db.session.commit()
-        serializer = TaskSchema()
-        result = serializer.dump(task)
-        return jsonify({"status": "success",
-                    "data": result.data})
+    if task:
+        task_data = request.get_json()
+        form = TaskForm(data=task_data)
+        if form.validate():
+            form.populate_obj(task)
+            db.session.commit()
+            serializer = TaskSchema()
+            result = serializer.dump(task)
+            return jsonify({"status": "success",
+                        "data": result.data})
+        else:
+            return jsonify({"status": "fail", "data": {"title": "Could not update."}}), 400
     else:
-        return jsonify({"status": "fail", "data": {"title": "Could not update."}}), 400
+        return jsonify({"status": "fail", "data": {"title": "Data not found."}}), 404
 
 
 @coaction.route("/api/task/<int:id>", methods=["DELETE"])
@@ -86,9 +89,11 @@ def delete_task(id):
 
 @coaction.route("/api/login", methods=["POST"])
 def login():
-    form = LoginForm()
+    user_data = request.get_json()
+    form = LoginForm(data=user_data)
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        print(user.email)
         if user and user.check_password(form.password.data):
             login_user(user)
             serializer = UserSchema()
@@ -96,7 +101,9 @@ def login():
             return jsonify({"status": "success",
                             "data": result.data})
         else:
-            return jsonify({"status": "fail", "data": {"title": "Could not login user."}}), 400
+            return jsonify({"status": "fail", "data": {"title": "Could not login user."}}), 401
+    else:
+        return jsonify({"status": "fail", "data": {"title": "Invalid data"}}), 400
 
 
 @coaction.route("/api/logout", methods=["POST"])
@@ -111,11 +118,13 @@ def logout():
 
 @coaction.route("/api/register", methods=["POST"])
 def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
+    user_data = request.get_json()
+    form = RegistrationForm(data=user_data)
+    print(form.data)
+    if form.validate():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
-            return jsonify({"status": "fail", "data": {"title": "This user already exists"}}), 400
+            return jsonify({"status": "fail", "data": {"title": "This user already exists"}}), 409
         else:
             user = User(name=form.name.data,
                         email=form.email.data,
@@ -127,4 +136,6 @@ def register():
             result = serializer.dump(user)
             return jsonify({"status": "success",
                     "data": result.data})
+    else:
+        return jsonify({"status": "fail", "data": {"title": "Invalid data"}}), 400
 
