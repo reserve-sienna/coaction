@@ -132,7 +132,9 @@ button {
 .main-nav-link.active {
   background: #4d5196; }
 
-<<<<<<< HEAD
+.title {
+  font-family: 'Syncopate', sans-serif; }
+
 body {
   background: #fce9dc; }
 
@@ -221,7 +223,3 @@ nav a {
 
 .edit, .status {
   display: inline-block; }
-=======
-.title {
-  font-family: 'Syncopate', sans-serif; }
->>>>>>> e5c0668ccb2fbc2d97ee669b1a67e4337eb8b861
