@@ -1,6 +1,7 @@
 from flask_wtf import Form
-from wtforms import StringField, DateField
-from wtforms.validators import DataRequired, Optional
+from wtforms import StringField, DateField, PasswordField
+from wtforms.fields.html5 import EmailField
+from wtforms.validators import DataRequired, Optional, Email, EqualTo
 
 
 class APIForm(Form):
@@ -14,3 +15,14 @@ class TaskForm(APIForm):
     description = StringField('description', validators = [Optional()])
     status = StringField('status', validators=[DataRequired()])
     due_date = DateField('due date', format='%Y-%m-%d')
+
+
+class LoginForm(Form):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+
+
+class RegistrationForm(Form):
+    name = StringField('Name', validators=[DataRequired()])
+    email = EmailField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
