@@ -4,8 +4,8 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
     return processAjaxPromise($http.get(url));
   }
 
-  function post(url, share) {
-    return processAjaxPromise($http.post(url, share));
+  function post(url, task) {
+    return processAjaxPromise($http.post(url, task));
   }
 
   function remove(url) {
@@ -14,7 +14,9 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
 
   function processAjaxPromise(p) {
     return p.then(function (result) {
-      return result.data;
+      var data = result.data;
+      console.log(data);
+      return data.data;
     })
     .catch(function (error) {
       $log.log(error);
@@ -31,7 +33,8 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
       },
 
       addTask: function (task) {
-      return post('/api/res', task);
+      console.log(task, "hello");
+      return post('/api/tasks', task);
       }
     //
     // deleteShare: function (id) {

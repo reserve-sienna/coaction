@@ -37,14 +37,14 @@ table {
   display: none !important; }
 
 body {
-  font-family: sans-serif;
+  font-family: 'Droid Sans', sans-serif;
   line-height: 1.4em;
   background: white;
   color: #444; }
 
 h1 {
   font-size: 2em;
-  margin: .67em 0; }
+  margin: 0; }
 
 h2 {
   font-size: 1.5em;
@@ -103,7 +103,7 @@ button {
   margin-bottom: 1.5em; }
 
 .main-nav {
-  background: #6067b0;
+  background: #7d3800;
   color: #FFF;
   padding: 0 2em; }
 
@@ -131,3 +131,95 @@ button {
 
 .main-nav-link.active {
   background: #4d5196; }
+
+.title {
+  font-family: 'Syncopate', sans-serif; }
+
+body {
+  background: #fce9dc; }
+
+.tasks-ul {
+  height: 35em;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: flex-start;
+  -ms-flex-line-pack: start;
+  align-content: flex-start; }
+
+nav h1 {
+  display: inline-block; }
+nav a {
+  font-size: 2.3em;
+  margin-left: 1em; }
+
+.task-li {
+  border: 1px solid black;
+  width: 14em;
+  padding: 1em;
+  margin: .5em 3em .5em .5em;
+  border-radius: .2em;
+  position: relative;
+  background-color: #eef1ec;
+  min-height: 3em; }
+
+.task-title {
+  font-size: 1.1em;
+  position: absolute;
+  top: 15px;
+  left: 60%;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+  white-space: nowrap; }
+
+.color-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 28%;
+  border-right: 1px solid black;
+  background: url(http://p1.pichost.me/640/67/1913110.jpg); }
+  .color-box button {
+    display: block;
+    margin: 0;
+    height: 33.33%;
+    width: 100%;
+    cursor: pointer;
+    font-size: .7em;
+    border: 1px solid black;
+    border-radius: .1em; }
+  .color-box .active {
+    margin-left: -15px;
+    border: 2px solid yellow;
+    border-radius: .3em; }
+
+.new-task-button {
+  background: #4F9EE5; }
+
+.doing-task-button {
+  background: #FF9D40; }
+
+.done-task-button {
+  background: #CC5314; }
+
+.date {
+  font-size: .75em;
+  font-weight: 600;
+  position: absolute;
+  bottom: 15px;
+  left: 60%;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%); }
+
+.edit, .status {
+  display: inline-block; }
