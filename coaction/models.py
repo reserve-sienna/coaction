@@ -15,7 +15,7 @@ class Task(db.Model):
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255))
     status = db.Column(db.String(255))
-    due_date = db.Column(db.Date)
+    due_date = db.Column(db.String(40))
 
     def __init__(self, title, description, status, due_date):
         self.title = title
