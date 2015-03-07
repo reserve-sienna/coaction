@@ -268,7 +268,7 @@ nav a {
     border-radius: .3em; }
   .user-partial form {
     position: absolute;
-    bottom: 60%;
+    top: 4em;
     width: 60%;
     left: 50%;
     -webkit-transform: translate(-50%);
