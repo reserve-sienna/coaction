@@ -17,6 +17,7 @@ class Task(db.Model):
     status = db.Column(db.String(255))
     due_date = db.Column(db.String(40))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    assigned_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, title, description, status, due_date):
         self.title = title
@@ -27,7 +28,7 @@ class Task(db.Model):
 
 class TaskSchema(Schema):
     class Meta:
-        fields = ("id", "title", "description", "status", "due_date", "owner_id")
+        fields = ("id", "title", "description", "status", "due_date", "owner_id", "assigned_id")
 
 def must_not_be_blank(data):
     if not data:
@@ -39,7 +40,9 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     encrypted_password = db.Column(db.String(60))
-    owned_tasks = db.relationship('Task', backref='user', lazy='dynamic')
+    owned_tasks = db.relationship('Task', backref='owner', lazy='dynamic', foreign_keys="Task.owner_id")
+    assigned_tasks = db.relationship('Task', backref='assigned', lazy='dynamic', foreign_keys="Task.assigned_id")
+
 
     def get_password(self):
         return getattr(self, "_password", None)
@@ -57,11 +60,7 @@ class User(db.Model, UserMixin):
         return "<User {}>".format(self.email)
 
 class UserSchema(Schema):
+    owned_tasks = fields.Nested(TaskSchema, many=True)
+    assigned_tasks = fields.Nested(TaskSchema, many=True)
     class Meta:
-        fields = ("id", "name", "email")
-
-
-Assignment = db.Table('assignment',
-                    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
-                    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-                    db.Column('task_id', db.Integer, db.ForeignKey('task.id')))
+        fields = ("id", "name", "email", "owned_tasks", "assigned_tasks")
