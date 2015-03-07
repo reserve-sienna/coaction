@@ -89,11 +89,11 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
 
       removeTask: function (id) {
       return remove('/api/task/' + id);
-    }
+    },
 
-    //   updateData: function (id, task) {
-    //   return put('/api/task/' + id, task);
-    // }
+      updateTask: function (id, task) {
+      return put('/api/task/' + id, task);
+    }
   };
 }]);
 
@@ -120,8 +120,9 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
   }
 
   return {
-      createUser: function () {
-      return post('/api/register');
+      createUser: function (user) {
+        console.log(user);
+      return post('/api/users', user);
       },
 
       logOutUser: function (id) {
@@ -166,6 +167,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
   var self = this;
   self.tasks = tasks;
+  // tasks.status = "new";
 
   self.removeTask = function (id) {
     tasksService.removeTask(id).then(function () {
@@ -177,11 +179,53 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   }).catch(function () {
     alert('failed to delete');
-  })
+  });
   };
+
+  self.updateTask = function (task, tabStatus) {
+    alert("UPDATE");
+    task.status = tabStatus;
+    tasksService.updateTask(task.id, task);
+  };
+}]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/user/user.html',
+    controller: 'UserCtrl',
+    controllerAs: 'vm'
+    // resolve: {
+    //   tasks: ['userService', function (userService){
+    //     return userService.getUsers();
+    //   }]
+    //   }
+  };
+  $routeProvider.when('/', routeDefinition);
+  $routeProvider.when('/users', routeDefinition);
+}])
+.controller('UserCtrl', ['$location', 'User', 'userService', function ($location, User, userService) {
+
+  var self = this;
+  self.user = User();
+  // tasks.status = "new";
+
+  self.createUser = function () {
+    userService.createUser(self.user);
+    };
 
 
 }]);
+
+app.factory('User', function () {
+  return function (spec) {
+    spec = spec || {};
+    return {
+      username: spec.username,
+      email: spec.email,
+      password: spec.password
+    };
+  };
+});
 
 app.controller('Error404Ctrl', ['$location', function ($location) {
   this.message = 'Could not find: ' + $location.url();

@@ -21,8 +21,9 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
   }
 
   return {
-      createUser: function () {
-      return post('/api/register');
+      createUser: function (user) {
+        console.log(user);
+      return post('/api/users', user);
       },
 
       logOutUser: function (id) {

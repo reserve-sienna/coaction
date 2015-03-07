@@ -1,0 +1,54 @@
+.create-wrapper, .login-wrapper {
+  // display: inline-block;
+  width: 50%;
+  position: relative;
+
+}
+
+.login-wrapper {
+  background-color: #0CBAE8;
+  height: 100%;
+
+}
+
+
+.user-partial {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  height: 100vh;
+  position: relative;
+
+  input {
+    height: 1.6em;
+    padding: .5em;
+    margin: .55em;
+    display: block;
+    border-radius: .3em;
+
+  }
+
+  form {
+    position: absolute;
+    bottom: 60%;
+    width: 60%;
+    left: 50%;
+    transform:translate(-50%);
+  }
+
+  button {
+    margin-top: 1em;
+    width: 10em;
+    position: absolute;
+    height: 2.5em;
+    border-radius: .2em;
+    left: 50%;
+    transform:translate(-50%);
+
+  }
+
+
+
+
+}

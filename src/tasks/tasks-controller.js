@@ -16,6 +16,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
   var self = this;
   self.tasks = tasks;
+  // tasks.status = "new";
 
   self.removeTask = function (id) {
     tasksService.removeTask(id).then(function () {
@@ -27,8 +28,12 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   }).catch(function () {
     alert('failed to delete');
-  })
+  });
   };
 
-
+  self.updateTask = function (task, tabStatus) {
+    alert("UPDATE");
+    task.status = tabStatus;
+    tasksService.updateTask(task.id, task);
+  };
 }]);
