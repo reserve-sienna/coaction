@@ -199,6 +199,7 @@ app.config(['$routeProvider', function($routeProvider) {
     //   }]
     //   }
   };
+  $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/login', routeDefinition);
 }])
 .controller('LogInCtrl', ['$location', 'User', 'userService', function ($location, User, userService) {
@@ -207,8 +208,12 @@ app.config(['$routeProvider', function($routeProvider) {
   self.user = User();
   // tasks.status = "new";
 
-  self.logInUser = function () {
-    userService.logInUser(self.user);
+  self.logInUser = function (user) {
+    return userService.logInUser(self.user).then(self.goToTasks);
+    };
+
+  self.goToTasks = function () {
+    $location.path('/tasks');
     };
 
 
@@ -225,7 +230,6 @@ app.config(['$routeProvider', function($routeProvider) {
     //   }]
     //   }
   };
-  $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/users', routeDefinition);
 }])
 .controller('UserCtrl', ['$location', 'User', 'userService', function ($location, User, userService) {

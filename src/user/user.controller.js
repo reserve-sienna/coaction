@@ -9,7 +9,6 @@ app.config(['$routeProvider', function($routeProvider) {
     //   }]
     //   }
   };
-  $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/users', routeDefinition);
 }])
 .controller('UserCtrl', ['$location', 'User', 'userService', function ($location, User, userService) {
