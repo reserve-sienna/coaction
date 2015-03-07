@@ -45,7 +45,7 @@ def add_task():
 
 @coaction.route("/api/tasks/incomplete", methods=["GET"])
 def get_incomplete_tasks():
-    tasks = Task.query.filter_by(Task.status != "Done").order_by(Task.due_date).all()
+    tasks = Task.query.filter(Task.status != "Done").order_by(Task.due_date).all()
     if tasks:
         serializer = TaskSchema(many=True)
         result = serializer.dump(tasks)
@@ -69,9 +69,9 @@ def get_task(id):
 
 @coaction.route("/api/task/<int:id>", methods=["PUT"])
 def update_task(id):
+    task_data = request.get_json()
     task = Task.query.get(id)
     if task:
-        task_data = request.get_json()
         form = TaskForm(data=task_data)
         if form.validate():
             form.populate_obj(task)
@@ -129,7 +129,7 @@ def logout():
 def get_users():
     users = User.query.all()
     if users:
-        serializer = TaskSchema(many=True)
+        serializer = UserSchema(many=True)
         result = serializer.dump(users)
         return jsonify({"status": "success",
                         "data": result.data})
