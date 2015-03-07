@@ -113,6 +113,7 @@ def logout():
     return jsonify({"status": "success"})
 
 
+
 @coaction.route("/api/register", methods=["POST"])
 def register():
     user_data = request.get_json()
