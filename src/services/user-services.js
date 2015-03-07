@@ -26,8 +26,8 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
       return post('/api/users', user);
       },
 
-      logOutUser: function (id) {
-      return get('/api/logout');
+      logOutUser: function () {
+      return post('/api/logout');
       },
 
       logInUser: function (user) {

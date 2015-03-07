@@ -13,9 +13,9 @@
           <button ng-click="vm.updateTask(task, 'doing')" ng-class="{ active: task.status === 'doing'}" class="doing-task-button">Doing</button>
           <button ng-click="vm.updateTask(task, 'done')" ng-class="{ active: task.status === 'done'}" class="done-task-button">Done</button>
         </div>
-        <span class="task-title">
+        <div class="task-title" ng-class="{ 'todo' : task.status==='new', doing : task.status==='doing', done : task.status==='done'}">
           {{task.title | ellipsis: 16}}
-        </span>
+        </div >
         <br>
         <span class="date">
           {{task.due_date | date:'EEEE, MMM d'}}

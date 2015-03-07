@@ -11,6 +11,28 @@ app.config(['$routeProvider', function ($routeProvider) {
   });
 }]);
 
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+
+      return StringUtil.startsWith($location.path(), path);
+    };
+
+   self.logOutUser = function () {
+     userService.logOutUser().then(self.goToLogIn);
+   };
+
+   self.goToLogIn = function () {
+     $location.path('/login');
+   }
+  }]);
+
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
     templateUrl: 'static/new-task/new-task.html',
@@ -126,8 +148,8 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
       return post('/api/users', user);
       },
 
-      logOutUser: function (id) {
-      return get('/api/logout');
+      logOutUser: function () {
+      return post('/api/logout');
       },
 
       logInUser: function (user) {
@@ -136,20 +158,6 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
 
   };
 }]);
-
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', function($location, StringUtil) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-
-      return StringUtil.startsWith($location.path(), path);
-    };
-  }]);
 
 //making a filter
 //$filter('filter') (array, expression, comparator)

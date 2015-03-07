@@ -9,6 +9,7 @@ body {
 }
 
 .tasks-wrapper {
+  box-sizing: border-box;
   padding: 1em 2em 2em 2em;
   margin: 0 auto;
   width: 100%;
@@ -40,12 +41,13 @@ body {
 }
 
 .tasks-ul {
-  height: 75vh;
+  width: 85%;
+  max-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  // align-items: center;
 }
 
 nav {
@@ -60,63 +62,59 @@ nav {
     font-size: 2.3em;
     float: right;
     margin-right: 2em;
-    margin-top: .2em;
   }
 
 }
 
 .task-li {
-  // border: 1px solid black;
-  width: 14em;
-  padding: 1em;
-  margin: .5em 3em .5em .5em;
+  width: 13em;
+  height: 13em;
   border-radius: .2em;
   position: relative;
   background-color: #eef1ec;
   min-height: 3em;
+  margin: .3em;
 }
 
 .task-title {
   font-size: 1.1em;
   position: absolute;
-  top: 15px;
-  left: 60%;
-  transform: translate(-50%);
-  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+  padding: .8em 0;
+  color: white;
+  // background-color: #063967;
+  // background-color: yellow;
 }
 
 
 .color-box {
   position: absolute;
   left: 0;
-  top: 0;
   bottom: 0;
-  width: 28%;
-  border-right: 1px solid black;
+  right: 0;
+  width: 100%;
   background: url(http://cache.desktopnexus.com/thumbnails/1406631-bigthumbnail.jpg);
 
 
   button {
-    display: block;
+    height: 2rem;
+    padding: 0;
     margin: 0;
-    height: 33.33%;
-    width: 100%;
+    width: 32%;
     cursor: pointer;
     font-size: .7em;
-    // border: 1px solid black;
-    border-radius: .1em;
     outline: none;
   }
 
   .active {
-     margin-left: -15px;
+    //  margin-left: -15px;
     //  border: 2px solid yellow;
-     border-radius: .3em;
+    //  border-radius: .3em;
   }
 }
 
 .new-task-button {
-  display: inline-block;
   background: $button-color-new;
 
 }
@@ -133,8 +131,8 @@ nav {
   font-size: .75em;
   font-weight: 600;
   position: absolute;
-  bottom: 15px;
-  left: 60%;
+  top: 5em;
+  left: 50%;
   transform: translate(-50%);
 }
 
@@ -145,17 +143,16 @@ nav {
 .remove-button {
   float: right;
   background: none;
-  color: black;
-  margin-top: -35px;
-  margin-right: -13px;
+  color: white;
+  margin-top: -15px;
 }
 
-.new-task-create-button {
-  background-color: none;
-  color: brown;
-}
-
-// .edit {
-//   background: none;
-//   font-family: coaction;
-// }
+.todo {
+  background-color: $button-color-new;
+  }
+.doing {
+  background-color:$button-color-doing;
+  }
+.done {
+  background-color:$button-color-done;
+  }
