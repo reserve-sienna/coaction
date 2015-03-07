@@ -5,7 +5,7 @@
   </nav>
 
   <div class="tasks-wrapper">
-    <h3>Hi, {{user.name}}</h3>
+    <h3 ng-show="vm.currentUser.name">Hi, {{vm.currentUser.name}}</h3>
     <ul class="tasks-ul">
       <li class="task-li" ng-repeat="task in vm.tasks | orderBy: task.status">
         <div class="color-box">

@@ -11,6 +11,20 @@ app.config(['$routeProvider', function ($routeProvider) {
   });
 }]);
 
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', function($location, StringUtil) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+
+      return StringUtil.startsWith($location.path(), path);
+    };
+  }]);
+
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
     templateUrl: 'static/new-task/new-task.html',
@@ -100,6 +114,9 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
 
 app.factory('userService', ['$http', '$log', function($http, $log) {
 
+  //currentUser will hold the returned logged in user object
+  var currentUser = {};
+
   function get(url) {
     return processAjaxPromise($http.get(url));
   }
@@ -122,8 +139,16 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
 
   return {
       createUser: function (user) {
-        console.log(user);
+
       return post('/api/users', user);
+      },
+
+      setCurrentUser: function(user) {
+        currentUser = user;
+      },
+
+      getCurrentUser: function() {
+        return currentUser;
       },
 
       logOutUser: function (id) {
@@ -136,20 +161,6 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
 
   };
 }]);
-
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', function($location, StringUtil) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-
-      return StringUtil.startsWith($location.path(), path);
-    };
-  }]);
 
 //making a filter
 //$filter('filter') (array, expression, comparator)
@@ -172,16 +183,22 @@ app.config(['$routeProvider', function($routeProvider) {
     resolve: {
       tasks: ['tasksService', function (tasksService){
         return tasksService.getTasks();
+      }],
+      currentUser: ['userService', function(userService){
+        return userService.getCurrentUser();
       }]
       }
   };
   $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/tasks', routeDefinition);
 }])
-.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', function ($location, tasks, tasksService) {
+.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', 'currentUser', function ($location, tasks, tasksService, currentUser) {
 
   var self = this;
+
   self.tasks = tasks;
+
+  self.currentUser = currentUser;
 
   self.removeTask = function (id) {
     tasksService.removeTask(id).then(function () {
@@ -219,12 +236,25 @@ app.config(['$routeProvider', function($routeProvider) {
 .controller('LogInCtrl', ['$location', 'User', 'userService', function ($location, User, userService) {
 
   var self = this;
+
+  self.error = null;
+
   self.user = User();
+
   // tasks.status = "new";
 
-  self.logInUser = function (user) {
-    return userService.logInUser(self.user).then(self.goToTasks);
-    };
+  self.logInUser = function () {
+     userService.logInUser(self.user).then(function(success){
+       
+     if (success) {
+       userService.setCurrentUser(success);
+       self.goToTasks();
+     }
+
+    }, function(error){
+      self.error = error;
+    });
+  };
 
   self.goToTasks = function () {
     $location.path('/tasks');
