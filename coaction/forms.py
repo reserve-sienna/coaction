@@ -14,7 +14,7 @@ class TaskForm(APIForm):
     title = StringField('title', validators=[DataRequired()])
     description = StringField('description', validators = [Optional()])
     status = StringField('status', validators=[DataRequired()])
-    due_date = DateField('due date', format='%Y-%m-%d')
+    due_date = StringField('due date', validators=[Optional()])
 
 
 class LoginForm(APIForm):
