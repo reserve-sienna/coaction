@@ -1,9 +1,10 @@
-<h1>Add a Task!</h1>
-
-<form ng-submit="vm.addTask()">
-  <!-- <input type="input" ng-model="vm.newTask"/> -->
-  <input ng-model="vm.task.title" placeholder="Task" required>
-  <input ng-model="vm.task.description" placeholder="Description">
-  <input ng-model="vm.task.due_date" placeholder="Due Date">
-  <button>+</button>
-</form>
+<div class="tasks-partial page-wrap">
+  <h1>Add a Task!</h1>
+  <form ng-submit="vm.addTask()">
+    <!-- <input type="input" ng-model="vm.newTask"/> -->
+    <input ng-model="vm.task.title" placeholder="Task" required>
+    <input ng-model="vm.task.description" placeholder="Description">
+    <input ng-model="vm.task.due_date" placeholder="Due Date">
+    <button>+</button>
+  </form>
+</div>

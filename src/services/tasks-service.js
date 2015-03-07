@@ -42,10 +42,10 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
 
       removeTask: function (id) {
       return remove('/api/task/' + id);
-    }
+    },
 
-    //   updateData: function (id, task) {
-    //   return put('/api/task/' + id, task);
-    // }
+      updateTask: function (id, task) {
+      return put('/api/task/' + id, task);
+    }
   };
 }]);

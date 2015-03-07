@@ -1,29 +1,27 @@
-<nav class = "tasks-nav">
-  <h1 class="task-header">Tasks</h1>
-  <a class="add-task-button" href="#/tasks/new">+ Add New Task</a>
-</nav>
+<div class="tasks-partial page-wrap">
+  <nav class = "tasks-nav">
+    <h1 class="task-header">Tasks</h1>
+    <a class="add-task-button" href="#/tasks/new">+ Add New Task</a>
+  </nav>
 
-<ul class="tasks-ul">
-  <li class="task-li" ng-repeat="task in vm.tasks">
-    <div class="color-box">
-      <button ng-click="task.status = 'new'" ng-class="{ active: task.status === 'new'}" class="new-task-button">New</button>
-      <button ng-click="task.status = 'doing'" ng-class="{ active: task.status === 'doing'}" class="doing-task-button">Doing</button>
-      <button ng-click="task.status = 'done'" ng-class="{ active: task.status === 'done'}" class="done-task-button">Done</button>
-    </div>
-    <!-- <label class="checkbox-label"> -->
-    <!-- <input type="checkbox" class="completed"> -->
-    <!-- </label> -->
+  <ul class="tasks-ul">
+    <li class="task-li" ng-repeat="task in vm.tasks">
+      <div class="color-box">
+        <button ng-click="vm.updateTask(task, 'new')" ng-class="{ active: task.status === 'new'}" class="new-task-button">New</button>
+        <button ng-click="vm.updateTask(task, 'doing')" ng-class="{ active: task.status === 'doing'}" class="doing-task-button">Doing</button>
+        <button ng-click="vm.updateTask(task, 'done')" ng-class="{ active: task.status === 'done'}" class="done-task-button">Done</button>
+      </div>
+      <span class="task-title">
+        {{task.title | ellipsis: 16}}
+      </span>
+      <br>
+      <span class="date">
+        {{task.due_date | date:'EEEE, MMM d'}}
+      </span>
+      <button class="remove-button" ng-click="vm.removeTask(task.id)">X</button>
+      <!-- <div class="status">{{task.status}}</div> -->
 
-    <span class="task-title">
-      {{task.title | ellipsis: 16}}
-    </span>
-    <br>
-    <span class="date">
-      {{task.due_date | date:'EEEE, MMM d'}}
-    </span>
-    <button class="remove-button" ng-click="vm.removeTask(task.id)">X</button>
-    <!-- <div class="status">{{task.status}}</div> -->
-
-     <!-- <button class="edit">a</button> -->
-  </li>
-</ul>
+       <!-- <button class="edit">a</button> -->
+    </li>
+  </ul>
+</div>

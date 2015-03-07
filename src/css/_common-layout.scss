@@ -1,4 +1,7 @@
 .root-content {
+}
+
+.page-wrap {
   padding: 2em;
 }
 
@@ -28,10 +31,27 @@
   transform: rotate(-10deg);
 }
 
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 1em;
+
+  .title {
+    padding-top: 1em;
+  }
+
+  .main-nav:first-child {
+  margin-right: auto;
+  }
+}
+
+
 .main-nav-link {
-  display: inline-block;
+  // display: inline-block;
   padding: 1em 1em;
   color: inherit;
+  font-size: 1em;
 }
 
 .main-nav-link:hover {

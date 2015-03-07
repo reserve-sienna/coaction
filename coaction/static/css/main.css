@@ -94,7 +94,7 @@ button {
   color: white;
   font-size: 1em; }
 
-.root-content {
+.page-wrap {
   padding: 2em; }
 
 .toolbar {
@@ -120,10 +120,24 @@ button {
   -webkit-transform: rotate(-10deg);
   transform: rotate(-10deg); }
 
+.main-nav {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  list-style: none;
+  padding: 1em; }
+  .main-nav .title {
+    padding-top: 1em; }
+  .main-nav .main-nav:first-child {
+    margin-right: auto; }
+
 .main-nav-link {
-  display: inline-block;
   padding: 1em 1em;
-  color: inherit; }
+  color: inherit;
+  font-size: 1em; }
 
 .main-nav-link:hover {
   background: #54CC14;
@@ -224,3 +238,47 @@ nav a {
 
 .remove-button {
   float: right; }
+
+.create-wrapper, .login-wrapper {
+  width: 50%;
+  position: relative; }
+
+.login-wrapper {
+  background-color: #0CBAE8;
+  height: 100%; }
+
+.user-partial {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  text-align: center;
+  height: 100vh;
+  position: relative; }
+  .user-partial input {
+    height: 1.6em;
+    padding: .5em;
+    margin: .55em;
+    display: block;
+    border-radius: .3em; }
+  .user-partial form {
+    position: absolute;
+    bottom: 60%;
+    width: 60%;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+    transform: translate(-50%); }
+  .user-partial button {
+    margin-top: 1em;
+    width: 10em;
+    position: absolute;
+    height: 2.5em;
+    border-radius: .2em;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+    transform: translate(-50%); }
