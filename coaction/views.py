@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, jsonify, request
-from .models import Task, TaskSchema, User, UserSchema, Assignment
+from .models import Task, TaskSchema, User, UserSchema
 from .forms import TaskForm, LoginForm, RegistrationForm
 from .extensions import db, login_manager
 from flask.ext.login import login_user, logout_user, current_user
