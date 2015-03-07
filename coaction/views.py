@@ -28,11 +28,11 @@ def tasks():
 @coaction.route("/api/tasks", methods=["POST"])
 def add_task():
     task_data = request.get_json()
-    print(task_data)
     form = TaskForm(data=task_data)
     form.status.data = "New"
     if form.validate():
         task = Task(**form.data)
+        task.owner_id = current_user.id
         db.session.add(task)
         db.session.commit()
         serializer = TaskSchema()
@@ -158,5 +158,6 @@ def create_user():
                     "data": result.data})
     else:
         return jsonify({"status": "fail", "data": {"title": "Invalid data"}}), 400
+
 
 

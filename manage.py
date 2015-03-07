@@ -4,10 +4,9 @@ import os
 from flask.ext.script import Manager, Shell, Server
 from flask.ext.migrate import MigrateCommand
 from flask.ext.script.commands import ShowUrls, Clean
-from datetime import datetime
-from faker import Factory
 from coaction import create_app, db
 from coaction.models import Task, User
+import random
 
 
 app = create_app()
@@ -45,7 +44,8 @@ def seed_tasks():
         task = Task(title=title,
                     description=description,
                     status="new",
-                    due_date=datetime.today())
+                    due_date="2015-03-20")
+        task.owner_id = random.randint(1, 4)
         db.session.add(task)
     db.session.commit()
     print("Tasks seeded.")
