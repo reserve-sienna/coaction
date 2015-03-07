@@ -11,20 +11,6 @@ app.config(['$routeProvider', function ($routeProvider) {
   });
 }]);
 
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', function($location, StringUtil) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-
-      return StringUtil.startsWith($location.path(), path);
-    };
-  }]);
-
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
     templateUrl: 'static/new-task/new-task.html',
@@ -150,6 +136,20 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
 
   };
 }]);
+
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', function($location, StringUtil) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+
+      return StringUtil.startsWith($location.path(), path);
+    };
+  }]);
 
 //making a filter
 //$filter('filter') (array, expression, comparator)
