@@ -115,8 +115,9 @@ def assign_task(id, user_id):
     user = User.query.get(user_id)
     if user:
         if task:
-            assignment = Assignment.query.filter_by(task_id=task.id).first()
-            db.session.delete(assignment)
+            assignment = db.session.query(Assignment).filter(Assignment.c.task_id == task.id).one()
+            if assignment:
+                db.session.delete(assignment)
             user.assigned_tasks.append(task)
             db.session.commit()
             serializer = TaskSchema()
@@ -130,9 +131,10 @@ def assign_task(id, user_id):
 
 
 # Show all tasks owned by a user.
-@coaction.route("/api/tasks/u/<int:user_id>")
+@coaction.route("/api/tasks/owned/<int:user_id>")
 def get_owned_tasks(user_id):
     user = User.query.get(user_id)
+    tasks = user.owned_tasks
     if current_user.id == user_id:
         if tasks:
             serializer = UserSchema()
@@ -143,6 +145,25 @@ def get_owned_tasks(user_id):
             return jsonify({"status": "fail", "data": {"title": "There are no tasks  "}}), 404
     else:
         return jsonify({"status": "fail", "data": {"title": "This user is not authorized."}}), 401
+
+
+
+# Show all tasks assuigned to a user.
+@coaction.route("/api/tasks/assigned/<int:user_id>")
+def get_assigned_tasks(user_id):
+    user = User.query.get(user_id)
+    tasks = user.assigned_tasks
+    if current_user.id == user_id:
+        if tasks:
+            serializer = UserSchema()
+            result = serializer.dump(user)
+            return jsonify({"status": "success",
+                            "data": result.data})
+        else:
+            return jsonify({"status": "fail", "data": {"title": "There are no tasks  "}}), 404
+    else:
+        return jsonify({"status": "fail", "data": {"title": "This user is not authorized."}}), 401
+
 
 
 @coaction.route("/api")

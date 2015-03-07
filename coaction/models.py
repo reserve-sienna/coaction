@@ -17,6 +17,7 @@ class Task(db.Model):
     status = db.Column(db.String(255))
     due_date = db.Column(db.String(40))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    assigned_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, title, description, status, due_date):
         self.title = title
@@ -39,8 +40,9 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     encrypted_password = db.Column(db.String(60))
-    owned_tasks = db.relationship('Task', backref='user', lazy='dynamic')
-    assigned_tasks = db.relationship('Task', secondary='assignment')
+    owned_tasks = db.relationship('Task', backref='user.owner_id', lazy='dynamic')
+    assigned_tasks = db.relationship('Task', backref='user.assigned_id', lazy='dynamic')
+
 
     def get_password(self):
         return getattr(self, "_password", None)
@@ -60,13 +62,7 @@ class User(db.Model, UserMixin):
 class UserSchema(Schema):
     owned_tasks = fields.Nested(TaskSchema, many=True)
     class Meta:
-        fields = ("id", "name", "email", "owned_tasks")
-
-# class UserTaskSchema(Schema):
-#     user = fields.Nested(UserSchema)
-#     tasks = fields.Nested(TaskSchema, many=True)
-#     class Meta:
-#         fields = ("user", "tasks")
+        fields = ("id", "name", "email", "owned_tasks", "assigned_tasks")
 
 
 Assignment = db.Table('assignment',
