@@ -12,7 +12,7 @@ class APIForm(Form):
 
 class TaskForm(APIForm):
     title = StringField('title', validators=[DataRequired()])
-    description = StringField('description', validators = [Optional()])
+    description = StringField('description', validators=[Optional()])
     status = StringField('status', validators=[DataRequired()])
     due_date = StringField('due date', validators=[Optional()])
 

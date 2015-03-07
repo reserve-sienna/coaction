@@ -40,6 +40,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), unique=True, nullable=False)
     encrypted_password = db.Column(db.String(60))
     owned_tasks = db.relationship('Task', backref='user', lazy='dynamic')
+    assigned_tasks = db.relationship('Task', secondary='assignment')
 
     def get_password(self):
         return getattr(self, "_password", None)
@@ -57,8 +58,15 @@ class User(db.Model, UserMixin):
         return "<User {}>".format(self.email)
 
 class UserSchema(Schema):
+    owned_tasks = fields.Nested(TaskSchema, many=True)
     class Meta:
-        fields = ("id", "name", "email")
+        fields = ("id", "name", "email", "owned_tasks")
+
+# class UserTaskSchema(Schema):
+#     user = fields.Nested(UserSchema)
+#     tasks = fields.Nested(TaskSchema, many=True)
+#     class Meta:
+#         fields = ("user", "tasks")
 
 
 Assignment = db.Table('assignment',
