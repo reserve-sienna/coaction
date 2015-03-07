@@ -16,6 +16,7 @@ class Task(db.Model):
     description = db.Column(db.String(255))
     status = db.Column(db.String(255))
     due_date = db.Column(db.String(40))
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, title, description, status, due_date):
         self.title = title
@@ -23,9 +24,10 @@ class Task(db.Model):
         self.status = status
         self.due_date = due_date
 
+
 class TaskSchema(Schema):
     class Meta:
-        fields = ("id", "title", "description", "status", "due_date")
+        fields = ("id", "title", "description", "status", "due_date", "owner_id")
 
 def must_not_be_blank(data):
     if not data:
@@ -37,6 +39,7 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     encrypted_password = db.Column(db.String(60))
+    owned_tasks = db.relationship('Task', backref='user', lazy='dynamic')
 
     def get_password(self):
         return getattr(self, "_password", None)
@@ -56,3 +59,9 @@ class User(db.Model, UserMixin):
 class UserSchema(Schema):
     class Meta:
         fields = ("id", "name", "email")
+
+
+Assignment = db.Table('assignment',
+                    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
+                    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+                    db.Column('task_id', db.Integer, db.ForeignKey('task.id')))
