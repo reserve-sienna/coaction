@@ -43,6 +43,19 @@ def add_task():
     else:
         return jsonify({"status": "fail", "data": {"title": "Could not insert."}}), 400
 
+
+@coaction.route("/api/tasks/incomplete", methods=["GET"])
+def get_incomplete_tasks():
+    tasks = Task.query.filter_by(Task.status != "Done").order_by(Task.due_date).all()
+    if tasks:
+        serializer = TaskSchema(many=True)
+        result = serializer.dump(tasks)
+        return jsonify({"status": "success",
+                        "data": result.data})
+    else:
+        return jsonify({"status": "fail", "data": {"title": "There are no incomplete tasks  "}}), 404
+
+
 @coaction.route("/api/task/<int:id>", methods=["GET"])
 def get_task(id):
     task = Task.query.get(id)
@@ -113,9 +126,20 @@ def logout():
     return jsonify({"status": "success"})
 
 
+@coaction.route("/api/users", methods=["GET"])
+def get_users():
+    users = User.query.all()
+    if users:
+        serializer = TaskSchema(many=True)
+        result = serializer.dump(users)
+        return jsonify({"status": "success",
+                        "data": result.data})
+    else:
+        return jsonify({"status": "fail", "data": {"title": "There are no users  "}}), 404
 
-@coaction.route("/api/register", methods=["POST"])
-def register():
+
+@coaction.route("/api/users", methods=["POST"])
+def create_user():
     user_data = request.get_json()
     form = RegistrationForm(data=user_data)
     if form.validate():
