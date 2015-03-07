@@ -109,10 +109,10 @@ def delete_task(id):
 
 
 # Assigns a task to a user.
-@coaction.route("/task/<int:id>/assign/<int:user_id>", methods=["POST"])
-def assign_task(id):
+@coaction.route("/api/task/<int:id>/assign/<int:user_id>", methods=["POST"])
+def assign_task(id, user_id):
     task = Task.query.get(id)
-    user = User.query.get(id)
+    user = User.query.get(user_id)
     if user:
         if task:
             assignment = Assignment.query.filter_by(task_id=task.id).first()
