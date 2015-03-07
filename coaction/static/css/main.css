@@ -128,7 +128,8 @@ button {
   -ms-flex-pack: justify;
   justify-content: space-between;
   list-style: none;
-  padding: 1em; }
+  padding: 1em;
+  opacity: .5; }
   .main-nav .title {
     padding-top: 1em; }
   .main-nav .main-nav:first-child {
@@ -240,8 +241,47 @@ nav a {
   float: right; }
 
 .create-wrapper, .login-wrapper {
-  width: 50%;
+  width: 100%;
+  position: relative;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  text-align: center;
+  height: 100vh;
   position: relative; }
+  .create-wrapper input, .login-wrapper input {
+    margin: .55em auto;
+    height: 1.6em;
+    padding: .5em;
+    display: block;
+    border-radius: .3em; }
+  .create-wrapper form, .login-wrapper form {
+    margin: 4em auto;
+    width: 40%;
+    height: 25em; }
+  .create-wrapper button, .login-wrapper button {
+    margin-top: 1em;
+    width: 10em;
+    position: absolute;
+    height: 2.5em;
+    border-radius: .2em;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+    transform: translate(-50%);
+    opacity: .7;
+    background-color: green; }
+  .create-wrapper h2, .login-wrapper h2 {
+    color: white; }
+
+.create-wrapper {
+  background: url(http://fc09.deviantart.net/fs70/i/2011/076/e/c/surreal_dark_background_by_mysticmorning-d3bv1so.jpg) no-repeat center center fixed;
+  background-size: cover; }
 
 .login-wrapper {
   background-color: #0CBAE8;
@@ -260,25 +300,3 @@ nav a {
   text-align: center;
   height: 100vh;
   position: relative; }
-  .user-partial input {
-    height: 1.6em;
-    padding: .5em;
-    margin: .55em;
-    display: block;
-    border-radius: .3em; }
-  .user-partial form {
-    position: absolute;
-    top: 4em;
-    width: 60%;
-    left: 50%;
-    -webkit-transform: translate(-50%);
-    transform: translate(-50%); }
-  .user-partial button {
-    margin-top: 1em;
-    width: 10em;
-    position: absolute;
-    height: 2.5em;
-    border-radius: .2em;
-    left: 50%;
-    -webkit-transform: translate(-50%);
-    transform: translate(-50%); }

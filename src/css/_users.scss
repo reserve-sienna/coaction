@@ -1,9 +1,56 @@
 .create-wrapper, .login-wrapper {
   // display: inline-block;
-  width: 50%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  height: 100vh;
   position: relative;
 
+  input {
+    margin: .55em auto;
+    height: 1.6em;
+    padding: .5em;
+    // margin: .55em;
+    display: block;
+    border-radius: .3em;
+
+  }
+
+  form {
+    margin: 4em auto;
+    width: 40%;
+    height: 25em;
+    // left: 50%;
+    // transform:translate(-50%);
+  }
+
+  button {
+    margin-top: 1em;
+    width: 10em;
+    position: absolute;
+    height: 2.5em;
+    border-radius: .2em;
+    left: 50%;
+    transform:translate(-50%);
+    opacity: .7;
+    background-color: green;
+  }
+
+  h2 {
+    color: white;
+  }
+
+
 }
+
+.create-wrapper {
+  background: url(http://fc09.deviantart.net/fs70/i/2011/076/e/c/surreal_dark_background_by_mysticmorning-d3bv1so.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
 
 .login-wrapper {
   background-color: #0CBAE8;
@@ -20,33 +67,6 @@
   height: 100vh;
   position: relative;
 
-  input {
-    height: 1.6em;
-    padding: .5em;
-    margin: .55em;
-    display: block;
-    border-radius: .3em;
-
-  }
-
-  form {
-    position: absolute;
-    top: 4em;
-    width: 60%;
-    left: 50%;
-    transform:translate(-50%);
-  }
-
-  button {
-    margin-top: 1em;
-    width: 10em;
-    position: absolute;
-    height: 2.5em;
-    border-radius: .2em;
-    left: 50%;
-    transform:translate(-50%);
-
-  }
 
 
 
