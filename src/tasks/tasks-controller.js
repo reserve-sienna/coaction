@@ -17,8 +17,6 @@ app.config(['$routeProvider', function($routeProvider) {
 }])
 .controller('TasksCtrl', ['$location', 'tasks', 'tasksService', 'currentUser', function ($location, tasks, tasksService, currentUser) {
 
-  console.log('current',currentUser);
-
   var self = this;
 
   self.tasks = tasks;

@@ -24,7 +24,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.logInUser = function () {
      userService.logInUser(self.user).then(function(success){
-       console.log(success, 'not right');
+       
      if (success) {
        userService.setCurrentUser(success);
        self.goToTasks();
