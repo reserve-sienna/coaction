@@ -18,9 +18,19 @@ app.config(['$routeProvider', function($routeProvider) {
   self.user = User();
   // tasks.status = "new";
 
-  self.logInUser = function (user) {
-    return userService.logInUser(self.user).then(self.goToTasks);
-    };
+  self.logInUser = function () {
+     userService.logInUser(self.user).then(function(success){
+       console.log(success, 'not right');
+     if (success) {
+       userService.setCurrentUser(success);
+     }
+
+      self.goToTasks();
+
+    }, function(error){
+      return error;
+    });
+  };
 
   self.goToTasks = function () {
     $location.path('/tasks');

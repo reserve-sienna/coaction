@@ -1,5 +1,8 @@
 app.factory('userService', ['$http', '$log', function($http, $log) {
 
+  //currentUser will hold the returned logged in user object
+  var currentUser = {};
+
   function get(url) {
     return processAjaxPromise($http.get(url));
   }
@@ -24,6 +27,14 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
       createUser: function (user) {
         console.log(user);
       return post('/api/users', user);
+      },
+
+      setCurrentUser: function(user) {
+        this.currentUser = user;
+      },
+
+      getCurrentUser: function() {
+        return this.currentUser;
       },
 
       logOutUser: function (id) {
