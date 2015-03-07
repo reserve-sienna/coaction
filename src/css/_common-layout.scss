@@ -2,7 +2,7 @@
 }
 
 .page-wrap {
-  padding: 2em;
+  // padding: 2em;
 }
 
 .toolbar {
@@ -11,11 +11,6 @@
   margin-bottom: 1.5em;
 }
 
-.main-nav {
-  background: #7d3800;
-  color: #FFF;
-  padding: 0 2em;
-}
 
 .app-icon {
   color: inherit;
@@ -35,8 +30,11 @@
   display: flex;
   justify-content: space-between;
   list-style: none;
-  padding: 1em;
-  opacity: .5;
+  // background: #7d3800;
+  background: #352D08;
+  color: #FFF;
+  padding: 0 2em;
+
 
   .title {
     padding-top: 1em;

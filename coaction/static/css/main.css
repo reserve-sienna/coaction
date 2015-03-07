@@ -94,18 +94,10 @@ button {
   color: white;
   font-size: 1em; }
 
-.page-wrap {
-  padding: 2em; }
-
 .toolbar {
   background: #F4F4F4;
   padding: 1em;
   margin-bottom: 1.5em; }
-
-.main-nav {
-  background: #7d3800;
-  color: #FFF;
-  padding: 0 2em; }
 
 .app-icon {
   color: inherit; }
@@ -128,8 +120,9 @@ button {
   -ms-flex-pack: justify;
   justify-content: space-between;
   list-style: none;
-  padding: 1em;
-  opacity: .5; }
+  background: #352D08;
+  color: #FFF;
+  padding: 0 2em; }
   .main-nav .title {
     padding-top: 1em; }
   .main-nav .main-nav:first-child {
@@ -153,8 +146,31 @@ button {
 body {
   background: #fce9dc; }
 
+.tasks-wrapper {
+  padding: 1em 2em 2em 2em;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #d1c5c5;
+  background-size: cover; }
+  .tasks-wrapper h3 {
+    padding-bottom: .5em;
+    margin: 0; }
+
+.add-task-button {
+  color: white;
+  margin-top: 3px; }
+
+.new-task-wrap {
+  margin: 2em; }
+
+.tasks-nav {
+  width: 100%;
+  text-align: center;
+  background-color: #41370A;
+  padding: .3em 0; }
+
 .tasks-ul {
-  height: 35em;
+  height: 75vh;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -167,15 +183,20 @@ body {
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  -webkit-align-content: flex-start;
-  -ms-flex-line-pack: start;
-  align-content: flex-start; }
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center; }
 
 nav h1 {
-  display: inline-block; }
+  display: inline-block;
+  color: white;
+  font-size: 1.3em;
+  letter-spacing: .1em; }
 nav a {
   font-size: 2.3em;
-  margin-left: 1em; }
+  float: right;
+  margin-right: 2em;
+  margin-top: .2em; }
 
 .task-li {
   width: 14em;
@@ -202,7 +223,7 @@ nav a {
   bottom: 0;
   width: 28%;
   border-right: 1px solid black;
-  background: url(http://p1.pichost.me/640/67/1913110.jpg); }
+  background: url(http://cache.desktopnexus.com/thumbnails/1406631-bigthumbnail.jpg); }
   .color-box button {
     display: block;
     margin: 0;
@@ -217,6 +238,7 @@ nav a {
     border-radius: .3em; }
 
 .new-task-button {
+  display: inline-block;
   background: #4F9EE5; }
 
 .doing-task-button {
@@ -238,7 +260,11 @@ nav a {
   display: inline-block; }
 
 .remove-button {
-  float: right; }
+  float: right;
+  background: none;
+  color: black;
+  margin-top: -35px;
+  margin-right: -13px; }
 
 .create-wrapper, .login-wrapper {
   width: 100%;
@@ -275,7 +301,7 @@ nav a {
     -webkit-transform: translate(-50%);
     transform: translate(-50%);
     opacity: .7;
-    background-color: green; }
+    background-color: #501509; }
   .create-wrapper h2, .login-wrapper h2 {
     color: white; }
 

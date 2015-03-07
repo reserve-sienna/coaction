@@ -16,7 +16,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
   var self = this;
   self.tasks = tasks;
-  // tasks.status = "new";
 
   self.removeTask = function (id) {
     tasksService.removeTask(id).then(function () {

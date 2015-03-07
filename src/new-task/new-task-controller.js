@@ -10,6 +10,7 @@ app.config(['$routeProvider', function($routeProvider) {
 .controller('NewTaskCtrl', ['$location', 'Task', 'tasksService', function ($location, Task, tasksService) {
   var self = this;
   self.task = Task();
+  self.user = 
 
   self.goToTasks = function () {
     $location.path('/tasks');
