@@ -8,12 +8,9 @@
 
 <body>
 
-<nav class="main-nav">
-  <li><div class="title">Tsk Tsk Tsk</div></li>
-  <li><a class="main-nav-link" ng-class="{active: vm.isActive('/tasks') || vm.isActive('/')}" href="#/tasks">To Do's</a></li>
-  <li><a class="main-nav-link" ng-class="{active: vm.isActive('/users')}" ng-href="#/users">Sign Up</a></li>
-  <li><a class="main-nav-link" href="#/login">Login</a></li>
-</nav>
+  <header class="site-header" ng-include="'/static/nav/main-nav.html'">
+  </header>
+
 
   <div class="root-content" ng-view>
   </div>

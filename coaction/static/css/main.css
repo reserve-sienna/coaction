@@ -76,7 +76,7 @@ a {
   outline: none; }
 
 a:hover {
-  color: #54CC14; }
+  color: #501509; }
 
 td {
   padding: 0.25em 0.5em; }
@@ -90,7 +90,7 @@ button {
   display: inline-block;
   padding: 0.25em 0.75em;
   border: 0;
-  background: #54CC14;
+  background: #501509;
   color: white;
   font-size: 1em; }
 
@@ -134,7 +134,7 @@ button {
   font-size: 1em; }
 
 .main-nav-link:hover {
-  background: #54CC14;
+  background: #501509;
   color: white; }
 
 .main-nav-link.active {
@@ -265,6 +265,10 @@ nav a {
   color: black;
   margin-top: -35px;
   margin-right: -13px; }
+
+.new-task-create-button {
+  background-color: none;
+  color: brown; }
 
 .create-wrapper, .login-wrapper {
   width: 100%;

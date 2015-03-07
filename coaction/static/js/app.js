@@ -11,6 +11,20 @@ app.config(['$routeProvider', function ($routeProvider) {
   });
 }]);
 
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', function($location, StringUtil) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+
+      return StringUtil.startsWith($location.path(), path);
+    };
+  }]);
+
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
     templateUrl: 'static/new-task/new-task.html',
@@ -253,6 +267,16 @@ app.factory('User', function () {
       email: spec.email,
       password: spec.password
     };
+  };
+});
+
+// A little string utility... no biggie
+app.factory('StringUtil', function() {
+  return {
+    startsWith: function (str, subStr) {
+      str = str || '';
+      return str.slice(0, subStr.length) === subStr;
+    }
   };
 });
 
