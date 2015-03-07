@@ -32,7 +32,6 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.updateTask = function (task, tabStatus) {
-    alert("UPDATE");
     task.status = tabStatus;
     tasksService.updateTask(task.id, task);
   };
