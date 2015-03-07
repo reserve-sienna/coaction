@@ -55,6 +55,10 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
     return processAjaxPromise($http.post(url, task));
   }
 
+  function put(url, task) {
+    return processAjaxPromise($http.put(url, task));
+  }
+
   function remove(url) {
     return processAjaxPromise($http.delete(url));
   }
@@ -65,7 +69,8 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
       return data.data;
     })
     .catch(function (error) {
-      $log.log(error);
+     $log.log(error);
+     throw error;
     });
   }
 
@@ -85,6 +90,48 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
       removeTask: function (id) {
       return remove('/api/task/' + id);
     }
+
+    //   updateData: function (id, task) {
+    //   return put('/api/task/' + id, task);
+    // }
+  };
+}]);
+
+app.factory('userService', ['$http', '$log', function($http, $log) {
+
+  function get(url) {
+    return processAjaxPromise($http.get(url));
+  }
+
+  function post(url, task) {
+    return processAjaxPromise($http.post(url, task));
+  }
+
+
+  function processAjaxPromise(p) {
+    return p.then(function (result) {
+      var data = result.data;
+      return data.data;
+    })
+    .catch(function (error) {
+     $log.log(error);
+     throw error;
+    });
+  }
+
+  return {
+      createUser: function () {
+      return post('/api/register');
+      },
+
+      logOutUser: function (id) {
+      return get('/api/logout');
+      },
+
+      logInUser: function (user) {
+      return post('/api/login', user);
+    },
+
   };
 }]);
 
@@ -115,13 +162,13 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/tasks', routeDefinition);
 }])
-.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', function ($location, tasks, shareService) {
+.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', function ($location, tasks, tasksService) {
 
   var self = this;
   self.tasks = tasks;
 
   self.removeTask = function (id) {
-    tasksService.removeTasks(id).then(function () {
+    tasksService.removeTask(id).then(function () {
     for (var i =0; i < self.tasks.length; ++i) {
       if (self.tasks[i].id === id) {
       self.tasks.splice(i, 1);

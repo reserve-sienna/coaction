@@ -15,12 +15,13 @@
     <!-- </label> -->
 
     <span class="task-title">
-      {{task.description | ellipsis: 16}}
+      {{task.title | ellipsis: 16}}
     </span>
     <br>
     <span class="date">
       {{task.due_date | date:'EEEE, MMM d'}}
     </span>
+    <button class="remove-button" ng-click="vm.removeTask(task.id)">X</button>
     <!-- <div class="status">{{task.status}}</div> -->
 
      <!-- <button class="edit">a</button> -->

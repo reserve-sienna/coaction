@@ -13,7 +13,6 @@ def index():
     return coaction.send_static_file("index.html")
 
 
-## Add your API views here
 @coaction.route("/api/tasks", methods=["GET"])
 def tasks():
     tasks = Task.query.all()
