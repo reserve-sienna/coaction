@@ -23,7 +23,7 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
   return {
       createUser: function (user) {
         console.log(user);
-      return post('/api/register', user);
+      return post('/api/users', user);
       },
 
       logOutUser: function (id) {

@@ -11,6 +11,40 @@ app.config(['$routeProvider', function ($routeProvider) {
   });
 }]);
 
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/new-task/new-task.html',
+    controller: 'NewTaskCtrl',
+    controllerAs: 'vm'
+  };
+
+  $routeProvider.when('/tasks/new', routeDefinition);
+}])
+.controller('NewTaskCtrl', ['$location', 'Task', 'tasksService', function ($location, Task, tasksService) {
+  var self = this;
+  self.task = Task();
+
+  self.goToTasks = function () {
+    $location.path('/tasks');
+  };
+
+  self.addTask = function () {
+    tasksService.addTask(self.task).then(self.goToTasks);
+  };
+
+}]);
+
+app.factory('Task', function () {
+  return function (spec) {
+    spec = spec || {};
+    return {
+      title: spec.title || '',
+      description: spec.description || '',
+      due_date: spec.due_date || ''
+    };
+  };
+});
+
 app.factory('tasksService', ['$http', '$log', function($http, $log) {
 
   function get(url) {
@@ -88,7 +122,7 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
   return {
       createUser: function (user) {
         console.log(user);
-      return post('/api/register', user);
+      return post('/api/users', user);
       },
 
       logOutUser: function (id) {
@@ -101,78 +135,6 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
 
   };
 }]);
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/new-task/new-task.html',
-    controller: 'NewTaskCtrl',
-    controllerAs: 'vm'
-  };
-
-  $routeProvider.when('/tasks/new', routeDefinition);
-}])
-.controller('NewTaskCtrl', ['$location', 'Task', 'tasksService', function ($location, Task, tasksService) {
-  var self = this;
-  self.task = Task();
-
-  self.goToTasks = function () {
-    $location.path('/tasks');
-  };
-
-  self.addTask = function () {
-    tasksService.addTask(self.task).then(self.goToTasks);
-  };
-
-}]);
-
-app.factory('Task', function () {
-  return function (spec) {
-    spec = spec || {};
-    return {
-      title: spec.title || '',
-      description: spec.description || '',
-      due_date: spec.due_date || ''
-    };
-  };
-});
-
-app.config(['$routeProvider', function($routeProvider) {
-  var routeDefinition = {
-    templateUrl: 'static/user/user.html',
-    controller: 'UserCtrl',
-    controllerAs: 'vm'
-    // resolve: {
-    //   tasks: ['userService', function (userService){
-    //     return userService.getUsers();
-    //   }]
-    //   }
-  };
-  $routeProvider.when('/', routeDefinition);
-  $routeProvider.when('/users', routeDefinition);
-}])
-.controller('UserCtrl', ['$location', 'User', 'userService', function ($location, User, userService) {
-
-  var self = this;
-  self.user = User();
-  // tasks.status = "new";
-
-  self.createUser = function () {
-    userService.createUser(self.user);
-    };
-
-
-}]);
-
-app.factory('User', function () {
-  return function (spec) {
-    spec = spec || {};
-    return {
-      username: spec.username,
-      email: spec.email,
-      password: spec.password
-    };
-  };
-});
 
 //making a filter
 //$filter('filter') (array, expression, comparator)
@@ -226,6 +188,44 @@ app.config(['$routeProvider', function($routeProvider) {
     tasksService.updateTask(task.id, task);
   };
 }]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  var routeDefinition = {
+    templateUrl: 'static/user/user.html',
+    controller: 'UserCtrl',
+    controllerAs: 'vm'
+    // resolve: {
+    //   tasks: ['userService', function (userService){
+    //     return userService.getUsers();
+    //   }]
+    //   }
+  };
+  $routeProvider.when('/', routeDefinition);
+  $routeProvider.when('/users', routeDefinition);
+}])
+.controller('UserCtrl', ['$location', 'User', 'userService', function ($location, User, userService) {
+
+  var self = this;
+  self.user = User();
+  // tasks.status = "new";
+
+  self.createUser = function () {
+    userService.createUser(self.user);
+    };
+
+
+}]);
+
+app.factory('User', function () {
+  return function (spec) {
+    spec = spec || {};
+    return {
+      username: spec.username,
+      email: spec.email,
+      password: spec.password
+    };
+  };
+});
 
 app.controller('Error404Ctrl', ['$location', function ($location) {
   this.message = 'Could not find: ' + $location.url();
