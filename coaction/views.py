@@ -35,7 +35,7 @@ def add_task():
     form.status.data = "New"
     if form.validate():
         task = Task(**form.data)
-        task.owner_id = current_user.id
+        task.owner = current_user
         db.session.add(task)
         user.assigned_tasks.append(task)
         db.session.commit()
@@ -115,11 +115,9 @@ def assign_task(id, user_id):
     user = User.query.get(user_id)
     if user:
         if task:
-            assignment = db.session.query(Assignment).filter(Assignment.c.task_id == task.id).one()
-            if assignment:
-                db.session.delete(assignment)
             user.assigned_tasks.append(task)
             db.session.commit()
+            print(task.assigned)
             serializer = TaskSchema()
             result = serializer.dump(task)
             return jsonify({"status": "success",
@@ -134,15 +132,11 @@ def assign_task(id, user_id):
 @coaction.route("/api/tasks/owned/<int:user_id>")
 def get_owned_tasks(user_id):
     user = User.query.get(user_id)
-    tasks = user.owned_tasks
     if current_user.id == user_id:
-        if tasks:
-            serializer = UserSchema()
+            serializer = UserSchema(exclude=('assigned_tasks', ))
             result = serializer.dump(user)
             return jsonify({"status": "success",
                             "data": result.data})
-        else:
-            return jsonify({"status": "fail", "data": {"title": "There are no tasks  "}}), 404
     else:
         return jsonify({"status": "fail", "data": {"title": "This user is not authorized."}}), 401
 
@@ -155,7 +149,7 @@ def get_assigned_tasks(user_id):
     tasks = user.assigned_tasks
     if current_user.id == user_id:
         if tasks:
-            serializer = UserSchema()
+            serializer = UserSchema(exclude=('owned_tasks', ))
             result = serializer.dump(user)
             return jsonify({"status": "success",
                             "data": result.data})
@@ -166,7 +160,7 @@ def get_assigned_tasks(user_id):
 
 
 
-@coaction.route("/api")
+
 # Logs in the user to the app.
 @coaction.route("/api/login", methods=["POST"])
 def login():
@@ -176,7 +170,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user)
-            serializer = UserSchema(exclude=('owned_tasks', ))
+            serializer = UserSchema(exclude=('owned_tasks', 'assigned_tasks', ))
             result = serializer.dump(user)
             return jsonify({"status": "success",
                             "data": result.data})

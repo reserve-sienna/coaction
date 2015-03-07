@@ -28,7 +28,7 @@ class Task(db.Model):
 
 class TaskSchema(Schema):
     class Meta:
-        fields = ("id", "title", "description", "status", "due_date", "owner_id")
+        fields = ("id", "title", "description", "status", "due_date", "owner_id", "assigned_id")
 
 def must_not_be_blank(data):
     if not data:
@@ -40,8 +40,8 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     encrypted_password = db.Column(db.String(60))
-    owned_tasks = db.relationship('Task', backref='owner', lazy='dynamic')
-    assigned_tasks = db.relationship('Task', backref='assigned', lazy='dynamic')
+    owned_tasks = db.relationship('Task', backref='owner', lazy='dynamic', foreign_keys="Task.owner_id")
+    assigned_tasks = db.relationship('Task', backref='assigned', lazy='dynamic', foreign_keys="Task.assigned_id")
 
 
     def get_password(self):
@@ -61,5 +61,6 @@ class User(db.Model, UserMixin):
 
 class UserSchema(Schema):
     owned_tasks = fields.Nested(TaskSchema, many=True)
+    assigned_tasks = fields.Nested(TaskSchema, many=True)
     class Meta:
         fields = ("id", "name", "email", "owned_tasks", "assigned_tasks")
