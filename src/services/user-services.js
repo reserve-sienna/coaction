@@ -30,11 +30,11 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
       },
 
       setCurrentUser: function(user) {
-        this.currentUser = user;
+        currentUser = user;
       },
 
       getCurrentUser: function() {
-        return this.currentUser;
+        return currentUser;
       },
 
       logOutUser: function (id) {

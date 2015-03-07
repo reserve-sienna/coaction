@@ -15,7 +15,11 @@ app.config(['$routeProvider', function($routeProvider) {
 .controller('LogInCtrl', ['$location', 'User', 'userService', function ($location, User, userService) {
 
   var self = this;
+
+  self.error = null;
+
   self.user = User();
+
   // tasks.status = "new";
 
   self.logInUser = function () {
@@ -23,12 +27,11 @@ app.config(['$routeProvider', function($routeProvider) {
        console.log(success, 'not right');
      if (success) {
        userService.setCurrentUser(success);
+       self.goToTasks();
      }
 
-      self.goToTasks();
-
     }, function(error){
-      return error;
+      self.error = error;
     });
   };
 

@@ -6,16 +6,24 @@ app.config(['$routeProvider', function($routeProvider) {
     resolve: {
       tasks: ['tasksService', function (tasksService){
         return tasksService.getTasks();
+      }],
+      currentUser: ['userService', function(userService){
+        return userService.getCurrentUser();
       }]
       }
   };
   $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/tasks', routeDefinition);
 }])
-.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', function ($location, tasks, tasksService) {
+.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', 'currentUser', function ($location, tasks, tasksService, currentUser) {
+
+  console.log('current',currentUser);
 
   var self = this;
+
   self.tasks = tasks;
+
+  self.currentUser = currentUser;
 
   self.removeTask = function (id) {
     tasksService.removeTask(id).then(function () {
