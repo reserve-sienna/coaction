@@ -7,7 +7,7 @@ from flask.ext.script.commands import ShowUrls, Clean
 from datetime import datetime
 from faker import Factory
 from coaction import create_app, db
-from coaction.models import Task
+from coaction.models import Task, User
 
 
 app = create_app()
@@ -25,8 +25,6 @@ def make_shell_context():
     """
 
     return dict(app=app, db=db)
-
-
 
 
 @manager.command
@@ -51,6 +49,18 @@ def seed_tasks():
         db.session.add(task)
     db.session.commit()
     print("Tasks seeded.")
+
+@manager.command
+def seed_users():
+    users = [("zach", "easy@gmail.com", "123"), ("tom", "example@gmail.com", "321"),
+             ("paget", "for@gmail.com", "213"), ("ana", "you@gmail.com", "231")]
+    for name, email, password in users:
+        user = User(name=name,
+                    email=email,
+                    password=password)
+        db.session.add(user)
+    db.session.commit()
+    print("Users seeded.")
 
 
 if __name__ == '__main__':
