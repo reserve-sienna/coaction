@@ -33,7 +33,8 @@ app.config(['$routeProvider', function($routeProvider) {
     }).catch(function () {
       alert('failed to delete');
     });
-  };
+  }
+};
 
     self.updateTask = function (task, tabStatus) {
       task.status = tabStatus;
