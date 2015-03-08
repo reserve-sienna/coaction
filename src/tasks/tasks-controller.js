@@ -14,24 +14,40 @@ app.config(['$routeProvider', function($routeProvider) {
 }])
 .controller('TasksCtrl', ['$location', 'tasks', 'tasksService', function ($location, tasks, tasksService) {
 
-  var self = this;
-  self.tasks = tasks;
+    var self = this;
+    self.tasks = tasks;
 
-  self.removeTask = function (id) {
-    tasksService.removeTask(id).then(function () {
-    for (var i =0; i < self.tasks.length; ++i) {
-      if (self.tasks[i].id === id) {
-      self.tasks.splice(i, 1);
-      break;
+    self.removeTask = function (id) {
+      tasksService.removeTask(id).then(function () {
+      for (var i =0; i < self.tasks.length; ++i) {
+        if (self.tasks[i].id === id) {
+        self.tasks.splice(i, 1);
+        break;
+        }
       }
-    }
-  }).catch(function () {
-    alert('failed to delete');
-  });
-  };
+    }).catch(function () {
+      alert('failed to delete');
+    });
+    };
 
-  self.updateTask = function (task, tabStatus) {
-    task.status = tabStatus;
-    tasksService.updateTask(task.id, task);
-  };
+    self.updateTask = function (task, tabStatus) {
+      task.status = tabStatus;
+      tasksService.updateTask(task.id, task);
+    };
+
+    self.className = function (task) {
+      var className = 'todo';
+
+      if (task.status === 'new') {
+        className += ' todo';
+      }
+      else if (task.status === 'doing') {
+        className += ' doing';
+      }
+      else {
+        className += ' done';
+      }
+      return className;
+    };
+
 }]);

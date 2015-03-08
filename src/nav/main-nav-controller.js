@@ -11,11 +11,11 @@ app.controller('MainNavCtrl',
       return StringUtil.startsWith($location.path(), path);
     };
 
-   self.logOutUser = function () {
-     userService.logOutUser().then(self.goToLogIn);
-   };
+    self.logOutUser = function () {
+      userService.logOutUser().then(self.goToLogIn);
+    };
 
-   self.goToLogIn = function () {
-     $location.path('/login');
-   }
+    self.goToLogIn = function () {
+      $location.path('/login');
+    };
   }]);

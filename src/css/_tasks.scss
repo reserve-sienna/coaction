@@ -1,11 +1,13 @@
-$background-color: #fce9dc;
+$background-color: #d1c5c5;
 $secondary-color: #4F9EE5;
-$button-color-new: #4F9EE5;
+$button-color-new: #008EB2;
 $button-color-doing: #FF9D40;
 $button-color-done: #CC5314;
 
 body {
-  background: $background-color;
+  background: url(http://images.fineartamerica.com/images-medium-large-5/sepia-sunrise-the-creative-minds-art-and-photography.jpg) no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
 }
 
 .tasks-wrapper {
@@ -13,16 +15,14 @@ body {
   padding: 1em 2em 2em 2em;
   margin: 0 auto;
   width: 100%;
-  // background: url(http://p1.pichost.me/i/54/1777610.jpg);
-  background-color: #d1c5c5;
   background-size: cover;
+
 
   h3 {
     padding-bottom: .5em;
     margin: 0;
   }
-
-  }
+}
 
 .add-task-button {
   color: white;
@@ -42,12 +42,10 @@ body {
 
 .tasks-ul {
   width: 85%;
-  max-height: 100vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  // align-items: center;
 }
 
 nav {
@@ -69,22 +67,17 @@ nav {
 .task-li {
   width: 13em;
   height: 13em;
-  border-radius: .2em;
+  border-radius: .3em;
   position: relative;
-  background-color: #eef1ec;
+  background-color: rgba(0, 0 , 0, .3);
   min-height: 3em;
   margin: .3em;
 }
 
 .task-title {
   font-size: 1.1em;
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  padding: .8em 0;
+  padding: .8em 0 0 .8em;
   color: white;
-  // background-color: #063967;
-  // background-color: yellow;
 }
 
 
@@ -105,14 +98,14 @@ nav {
     cursor: pointer;
     font-size: .7em;
     outline: none;
+    opacity: .8;
   }
 
-  .active {
-    //  margin-left: -15px;
-    //  border: 2px solid yellow;
-    //  border-radius: .3em;
+ .active {
+   font-size: 2em;
   }
 }
+
 
 .new-task-button {
   background: $button-color-new;
@@ -134,6 +127,7 @@ nav {
   top: 5em;
   left: 50%;
   transform: translate(-50%);
+  color: white;
 }
 
 .edit, .status {
@@ -144,15 +138,20 @@ nav {
   float: right;
   background: none;
   color: white;
-  margin-top: -15px;
+  margin-top: -60px;
 }
 
 .todo {
   background-color: $button-color-new;
+  opacity: .8;
   }
+
 .doing {
   background-color:$button-color-doing;
+  opacity: .8;
   }
+
 .done {
   background-color:$button-color-done;
+  opacity: .8;
   }

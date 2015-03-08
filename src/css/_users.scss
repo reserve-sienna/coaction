@@ -20,9 +20,12 @@
   }
 
   form {
-    margin: 4em auto;
-    width: 40%;
+    padding: 0em 3em;
+    margin: 5em auto;
+    max-width: 25%;
     height: 25em;
+    border-radius: .3em;
+    background-color: rgba(0,0,0,0.5);
     // left: 50%;
     // transform:translate(-50%);
 

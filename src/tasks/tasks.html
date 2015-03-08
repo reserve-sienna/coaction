@@ -9,21 +9,18 @@
     <ul class="tasks-ul">
       <li class="task-li" ng-repeat="task in vm.tasks | orderBy: task.status">
         <div class="color-box">
-          <button ng-click="vm.updateTask(task, 'new')" ng-class="{ active: task.status === 'new'}" class="new-task-button">ToDo</button>
-          <button ng-click="vm.updateTask(task, 'doing')" ng-class="{ active: task.status === 'doing'}" class="doing-task-button">Doing</button>
-          <button ng-click="vm.updateTask(task, 'done')" ng-class="{ active: task.status === 'done'}" class="done-task-button">Done</button>
+          <button ng-click="vm.updateTask(task, 'new')"  class="new-task-button">ToDo</button>
+          <button ng-click="vm.updateTask(task, 'doing')" class="doing-task-button">Doing</button>
+          <button ng-click="vm.updateTask(task, 'done')"  class="done-task-button">Done</button>
         </div>
-        <div class="task-title" ng-class="{ 'todo' : task.status==='new', doing : task.status==='doing', done : task.status==='done'}">
+        <div class="todo task-title" ng-class="vm.className(task)">
           {{task.title | ellipsis: 16}}
-        </div >
+        </div>
         <br>
         <span class="date">
           {{task.due_date | date:'EEEE, MMM d'}}
         </span>
         <button class="remove-button" ng-click="vm.removeTask(task.id)">X</button>
-        <!-- <div class="status">{{task.status}}</div> -->
-
-         <!-- <button class="edit">a</button> -->
       </li>
     </ul>
   </div>
