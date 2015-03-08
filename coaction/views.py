@@ -182,6 +182,14 @@ def login():
             return jsonify({"status": "success",
                             "data": result.data})
         else:
+            message = Message(
+                              "Hello",
+                              sender="python.tiy@gmail.com",
+                              recipients=[form.email.data]
+                              )
+            message.body = "Hi, you need to create an account." \
+                           " https://polar-escarpment-1079.herokuapp.com/#/users"
+            mail.send(message)
             return jsonify({"status": "fail", "data": {"title": "Could not login user."}}), 401
     else:
         return jsonify({"status": "fail", "data": {"title": "Invalid data"}}), 400
@@ -210,7 +218,11 @@ def get_users():
 @coaction.route("/api/authenticated")
 def authenticated():
     if current_user.is_active():
-        return jsonify({"status": "success"})
+        user = User.query.get(current_user.id)
+        serializer = UserSchema(exclude=('owned_tasks', 'assigned_tasks', ))
+        result = serializer.dump(user)
+        return jsonify({"status": "success",
+                        "data": result.data})
     else:
         return jsonify({"status": "fail"})
 

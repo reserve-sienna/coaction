@@ -2,11 +2,18 @@ from flask import Flask, render_template
 from . import models
 from .extensions import db, migrate, config, login_manager, mail
 from .views import coaction
+import os
 
 
 SQLALCHEMY_DATABASE_URI = "postgres://localhost/tasks"
 DEBUG = True
 SECRET_KEY = 'development-key'
+MAIL_SERVER = 'smtp.googlemail.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = "xxxx@gmail.com"
+MAIL_PASSWORD = "xxxx"
 
 
 def create_app():
