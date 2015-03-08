@@ -28,11 +28,12 @@ app.config(['$routeProvider', function($routeProvider) {
       self.tasks.splice(i, 1);
       break;
       }
-    }).catch(function () {
-      alert('failed to delete');
-    });
     }
+    }).catch(function () {
+        alert('failed to delete');
+      });
     };
+
 
     self.updateTask = function (task, tabStatus) {
       task.status = tabStatus;
