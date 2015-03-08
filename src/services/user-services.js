@@ -25,7 +25,6 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
 
   return {
       createUser: function (user) {
-
       return post('/api/users', user);
       },
 

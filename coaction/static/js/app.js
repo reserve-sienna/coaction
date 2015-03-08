@@ -147,7 +147,6 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
 
   return {
       createUser: function (user) {
-
       return post('/api/users', user);
       },
 
@@ -204,9 +203,7 @@ app.config(['$routeProvider', function($routeProvider) {
 .controller('TasksCtrl', ['$location', 'tasks', 'tasksService', 'currentUser', function ($location, tasks, tasksService, currentUser) {
 
   var self = this;
-
   self.tasks = tasks;
-
   self.currentUser = currentUser;
 
   self.removeTask = function (id) {
@@ -219,8 +216,8 @@ app.config(['$routeProvider', function($routeProvider) {
     }).catch(function () {
       alert('failed to delete');
     });
-  }
-};
+    }
+    };
 
     self.updateTask = function (task, tabStatus) {
       task.status = tabStatus;
@@ -229,7 +226,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
     self.className = function (task) {
       var className = 'task-title';
-
       if (task.status === 'new') {
         className += ' todo';
       }
