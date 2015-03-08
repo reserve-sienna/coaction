@@ -2,10 +2,16 @@ from flask import Blueprint, flash, jsonify, request
 from .models import Task, TaskSchema, User, UserSchema
 from .forms import TaskForm, LoginForm, RegistrationForm
 from .extensions import db, login_manager
-from flask.ext.login import login_user, logout_user, current_user
+from flask.ext.login import login_user, logout_user, current_user, login_required
+from flask_mail import Message
+from coaction import mail
 
 
 coaction = Blueprint("coaction", __name__, static_folder="./static")
+
+
+
+
 
 
 @coaction.route("/")
@@ -28,6 +34,7 @@ def tasks():
 
 # Creates one task adding it to the database.
 @coaction.route("/api/tasks", methods=["POST"])
+@login_required
 def add_task():
     user = User.query.get(current_user.id)
     task_data = request.get_json()
@@ -200,6 +207,13 @@ def get_users():
         return jsonify({"status": "fail", "data": {"title": "There are no users  "}}), 404
 
 
+@coaction.route("/api/authenticated")
+def authenticated():
+    if current_user.is_active():
+        return jsonify({"status": "success"})
+    else:
+        return jsonify({"status": "fail"})
+
 # Adds a user.
 @coaction.route("/api/users", methods=["POST"])
 def create_user():
@@ -220,6 +234,7 @@ def create_user():
                             "data": result.data})
     else:
         return jsonify({"status": "fail", "data": {"title": "Invalid data"}}), 400
+
 
 
 
