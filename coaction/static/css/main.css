@@ -163,6 +163,9 @@ button {
   text-align: center;
   height: 100vh;
   position: relative; }
+  .create-wrapper p, .login-wrapper p {
+    color: white;
+    font-style: italic; }
   .create-wrapper input, .login-wrapper input {
     margin: .55em auto;
     height: 1.6em;
@@ -170,23 +173,13 @@ button {
     display: block;
     border-radius: .3em; }
   .create-wrapper form, .login-wrapper form {
+    position: relative;
     padding: 0em 3em;
     margin: 5em auto;
     max-width: 25%;
-    height: 25em;
+    height: 26em;
     border-radius: .3em;
     background-color: rgba(0, 0, 0, 0.5); }
-    .create-wrapper form button, .login-wrapper form button {
-      margin-top: 1em;
-      width: 10em;
-      position: absolute;
-      height: 2.5em;
-      border-radius: .2em;
-      left: 50%;
-      -webkit-transform: translate(-50%);
-      transform: translate(-50%);
-      opacity: .7;
-      background-color: #501509; }
   .create-wrapper h2, .login-wrapper h2 {
     color: white; }
 
@@ -212,6 +205,23 @@ button {
   height: 100vh;
   position: relative; }
 
+.create-user-button {
+  width: 13em;
+  position: absolute;
+  height: 2.5em;
+  border-radius: .2em;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+  opacity: .7;
+  background-color: #501509;
+  bottom: 25px;
+  cursor: pointer;
+  background-color: #cc5314; }
+
+.create-user-button:hover {
+  background-color: #501509; }
+
 body {
   background: url(http://images.fineartamerica.com/images-medium-large-5/sepia-sunrise-the-creative-minds-art-and-photography.jpg) no-repeat center center fixed;
   background-size: cover;
@@ -222,7 +232,9 @@ body {
   padding: 1em 2em 2em 2em;
   margin: 0 auto;
   width: 100%;
-  background-size: cover; }
+  background-size: cover;
+  font-family: 'Inconsolata';
+  color: white; }
   .tasks-wrapper h3 {
     padding-bottom: .5em;
     margin: 0; }
@@ -241,7 +253,8 @@ body {
   padding: .3em 0; }
 
 .tasks-ul {
-  width: 85%;
+  max-width: 85%;
+  margin: 0 auto;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -276,7 +289,7 @@ nav a {
 
 .task-title {
   font-size: 1.1em;
-  padding: .8em 0 0 .8em;
+  padding: .8em 0 .5em .8em;
   color: white; }
 
 .color-box {
@@ -290,32 +303,28 @@ nav a {
     height: 2rem;
     padding: 0;
     margin: 0;
-    width: 32%;
+    width: 30%;
     cursor: pointer;
-    font-size: .7em;
+    font-size: .5em;
     outline: none;
     opacity: .8; }
   .color-box .active {
     font-size: 2em; }
 
 .new-task-button {
-  background: #008EB2; }
+  background: rgba(80, 21, 9, 0.8); }
 
 .doing-task-button {
-  background: #FF9D40; }
+  background: rgba(255, 157, 64, 0.8); }
 
 .done-task-button {
-  background: #CC5314; }
+  background: rgba(204, 83, 20, 0.8); }
 
 .date {
-  font-size: .75em;
+  font-size: .94em;
   font-weight: 600;
-  position: absolute;
-  top: 5em;
-  left: 50%;
-  -webkit-transform: translate(-50%);
-  transform: translate(-50%);
-  color: white; }
+  color: white;
+  margin-left: 2em; }
 
 .edit, .status {
   display: inline-block; }
@@ -327,13 +336,10 @@ nav a {
   margin-top: -60px; }
 
 .todo {
-  background-color: #008EB2;
-  opacity: .8; }
+  background-color: rgba(80, 21, 9, 0.8); }
 
 .doing {
-  background-color: #FF9D40;
-  opacity: .8; }
+  background-color: rgba(255, 157, 64, 0.8); }
 
 .done {
-  background-color: #CC5314;
-  opacity: .8; }
+  background-color: rgba(204, 83, 20, 0.8); }

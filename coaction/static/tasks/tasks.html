@@ -13,7 +13,7 @@
           <button ng-click="vm.updateTask(task, 'doing')" class="doing-task-button">Doing</button>
           <button ng-click="vm.updateTask(task, 'done')"  class="done-task-button">Done</button>
         </div>
-        <div class="todo task-title" ng-class="vm.className(task)">
+        <div class="task-title" ng-class="vm.className(task)">
           {{task.title | ellipsis: 16}}
         </div>
         <br>

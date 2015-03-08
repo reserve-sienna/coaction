@@ -36,7 +36,7 @@ app.config(['$routeProvider', function($routeProvider) {
     };
 
     self.className = function (task) {
-      var className = 'todo';
+      var className = 'task-title';
 
       if (task.status === 'new') {
         className += ' todo';

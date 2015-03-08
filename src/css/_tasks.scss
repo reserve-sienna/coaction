@@ -1,8 +1,5 @@
-$background-color: #d1c5c5;
-$secondary-color: #4F9EE5;
-$button-color-new: #008EB2;
-$button-color-doing: #FF9D40;
-$button-color-done: #CC5314;
+
+$square-font: 'Inconsolata';
 
 body {
   background: url(http://images.fineartamerica.com/images-medium-large-5/sepia-sunrise-the-creative-minds-art-and-photography.jpg) no-repeat center center fixed;
@@ -16,6 +13,8 @@ body {
   margin: 0 auto;
   width: 100%;
   background-size: cover;
+  font-family: $square-font;
+  color: white;
 
 
   h3 {
@@ -41,7 +40,8 @@ body {
 }
 
 .tasks-ul {
-  width: 85%;
+  max-width: 85%;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -76,7 +76,7 @@ nav {
 
 .task-title {
   font-size: 1.1em;
-  padding: .8em 0 0 .8em;
+  padding: .8em 0 .5em .8em;
   color: white;
 }
 
@@ -94,9 +94,9 @@ nav {
     height: 2rem;
     padding: 0;
     margin: 0;
-    width: 32%;
+    width: 30%;
     cursor: pointer;
-    font-size: .7em;
+    font-size: .5em;
     outline: none;
     opacity: .8;
   }
@@ -121,13 +121,10 @@ nav {
 }
 
 .date {
-  font-size: .75em;
+  font-size: .94em;
   font-weight: 600;
-  position: absolute;
-  top: 5em;
-  left: 50%;
-  transform: translate(-50%);
   color: white;
+  margin-left: 2em;
 }
 
 .edit, .status {
@@ -143,15 +140,12 @@ nav {
 
 .todo {
   background-color: $button-color-new;
-  opacity: .8;
   }
 
 .doing {
   background-color:$button-color-doing;
-  opacity: .8;
   }
 
 .done {
   background-color:$button-color-done;
-  opacity: .8;
   }
