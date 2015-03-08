@@ -36,6 +36,11 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
         return currentUser;
       },
 
+      getUsers: function () {
+         return get('/api/users').then(function (result) {
+           return result;
+         });
+      },
 
       logOutUser: function () {
       return post('/api/logout');
@@ -43,7 +48,7 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
 
       logInUser: function (user) {
       return post('/api/login', user);
-    },
+      }
 
   };
 }]);

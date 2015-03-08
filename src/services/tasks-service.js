@@ -38,14 +38,18 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
 
       addTask: function (task) {
       return post('/api/tasks', task);
-    },
+      },
+
+      assignTask: function (taskId, userId) {
+      return put('/api/task/' + taskId + '/assign/' + userId);
+      },
 
       removeTask: function (id) {
       return remove('/api/task/' + id);
-    },
+      },
 
       updateTask: function (id, task) {
       return put('/api/task/' + id, task);
-    }
+      }
   };
 }]);

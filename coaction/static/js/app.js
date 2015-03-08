@@ -45,7 +45,7 @@ app.config(['$routeProvider', function($routeProvider) {
 .controller('NewTaskCtrl', ['$location', 'Task', 'tasksService', function ($location, Task, tasksService) {
   var self = this;
   self.task = Task();
-  self.user = 
+
 
   self.goToTasks = function () {
     $location.path('/tasks');
@@ -108,15 +108,19 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
 
       addTask: function (task) {
       return post('/api/tasks', task);
-    },
+      },
+
+      assignTask: function (taskId, userId) {
+      return put('/api/task/' + taskId + '/assign/' + userId);
+      },
 
       removeTask: function (id) {
       return remove('/api/task/' + id);
-    },
+      },
 
       updateTask: function (id, task) {
       return put('/api/task/' + id, task);
-    }
+      }
   };
 }]);
 
@@ -158,6 +162,11 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
         return currentUser;
       },
 
+      getUsers: function () {
+         return get('/api/users').then(function (result) {
+           return result;
+         });
+      },
 
       logOutUser: function () {
       return post('/api/logout');
@@ -165,7 +174,7 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
 
       logInUser: function (user) {
       return post('/api/login', user);
-    },
+      }
 
   };
 }]);
@@ -194,17 +203,21 @@ app.config(['$routeProvider', function($routeProvider) {
       }],
       currentUser: ['userService', function(userService){
         return userService.getCurrentUser();
+      }],
+      users: ['userService', function(userService) {
+        return userService.getUsers();
       }]
-      }
+    }
   };
   $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/tasks', routeDefinition);
 }])
-.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', 'currentUser', function ($location, tasks, tasksService, currentUser) {
+.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', 'userService','currentUser', 'users', function ($location, tasks, tasksService, userService, currentUser, users) {
 
   var self = this;
   self.tasks = tasks;
   self.currentUser = currentUser;
+  self.users = users;
 
   self.removeTask = function (id) {
     tasksService.removeTask(id).then(function () {
@@ -219,6 +232,14 @@ app.config(['$routeProvider', function($routeProvider) {
       });
     };
 
+    // self.getUsers = function () {
+    //   return userService.getUsers();
+    // };
+
+    self.assignTask = function (usersladel) {
+      console.log(usersladel);
+      tasksService.assignTask(usersladel);
+    };
 
     self.updateTask = function (task, tabStatus) {
       task.status = tabStatus;
@@ -226,7 +247,7 @@ app.config(['$routeProvider', function($routeProvider) {
     };
 
     self.className = function (task) {
-      var className = 'task-title';
+      var className = 'task-title todo';
       if (task.status === 'new') {
         className += ' todo';
       }

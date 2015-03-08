@@ -9,17 +9,21 @@ app.config(['$routeProvider', function($routeProvider) {
       }],
       currentUser: ['userService', function(userService){
         return userService.getCurrentUser();
+      }],
+      users: ['userService', function(userService) {
+        return userService.getUsers();
       }]
-      }
+    }
   };
   $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/tasks', routeDefinition);
 }])
-.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', 'currentUser', function ($location, tasks, tasksService, currentUser) {
+.controller('TasksCtrl', ['$location', 'tasks', 'tasksService', 'userService','currentUser', 'users', function ($location, tasks, tasksService, userService, currentUser, users) {
 
   var self = this;
   self.tasks = tasks;
   self.currentUser = currentUser;
+  self.users = users;
 
   self.removeTask = function (id) {
     tasksService.removeTask(id).then(function () {
@@ -34,6 +38,14 @@ app.config(['$routeProvider', function($routeProvider) {
       });
     };
 
+    // self.getUsers = function () {
+    //   return userService.getUsers();
+    // };
+
+    self.assignTask = function (usersladel) {
+      console.log(usersladel);
+      tasksService.assignTask(usersladel);
+    };
 
     self.updateTask = function (task, tabStatus) {
       task.status = tabStatus;
@@ -41,7 +53,7 @@ app.config(['$routeProvider', function($routeProvider) {
     };
 
     self.className = function (task) {
-      var className = 'task-title';
+      var className = 'task-title todo';
       if (task.status === 'new') {
         className += ' todo';
       }

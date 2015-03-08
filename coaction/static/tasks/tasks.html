@@ -1,26 +1,51 @@
-<div class="tasks-partial page-wrap">
+
+</ul><div class="tasks-partial page-wrap">
   <nav class = "tasks-nav">
     <h1 class="task-header">TASKS</h1>
     <a class="add-task-button" href="#/tasks/new">+</a>
   </nav>
 
   <div class="tasks-wrapper">
-    <h3 ng-show="vm.currentUser.name">Hi, {{vm.currentUser.name}}</h3>
+
+
+    <div class="filter-wrapper">
+      <button  class="doing-task-filter">Doing</button>
+      <button  class="done-task-filter">Done</button>
+      <button class="new-task-filter">ToDo</button>
+    </div>
+
+    <h3 ng-show="vm.currentUser.name">Hello, {{vm.currentUser.name}}</h3>
     <ul class="tasks-ul">
       <li class="task-li" ng-repeat="task in vm.tasks | orderBy: task.status">
+        <div class="task-title" ng-class="vm.className(task)">
+          {{task.title | ellipsis: 16}}
+        </div>
+        <span class="date">
+          {{task.due_date | date:'EEEE, MMM d'}}
+        </span>
+
+        <button class="users" ng-click="vm.getUsers()">
+          +
+        </button>
+
+        <div class="user-list">
+          {{usersladel}}
+          <form ng-submit="vm.assignTask(usersladel)">
+            <select ng-model="usersladel">
+              <option ng-repeat="user in vm.users">
+                   {{ user.id }}
+              </option>
+            </select>
+            <button>add that fool to a task son</button>
+          </form>
+        </div>
+
+        <button class="remove-button" ng-click="vm.removeTask(task.id)">x</button>
         <div class="color-box">
           <button ng-click="vm.updateTask(task, 'new')"  class="new-task-button">ToDo</button>
           <button ng-click="vm.updateTask(task, 'doing')" class="doing-task-button">Doing</button>
           <button ng-click="vm.updateTask(task, 'done')"  class="done-task-button">Done</button>
         </div>
-        <div class="task-title" ng-class="vm.className(task)">
-          {{task.title | ellipsis: 16}}
-        </div>
-        <br>
-        <span class="date">
-          {{task.due_date | date:'EEEE, MMM d'}}
-        </span>
-        <button class="remove-button" ng-click="vm.removeTask(task.id)">X</button>
       </li>
     </ul>
   </div>
