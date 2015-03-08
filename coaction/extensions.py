@@ -16,3 +16,6 @@ login_manager = LoginManager()
 # Change this to HerokuConfig if using Heroku.
 from flask.ext.appconfig import HerokuConfig
 config = HerokuConfig()
+
+from flask_mail import Mail
+mail = Mail()
