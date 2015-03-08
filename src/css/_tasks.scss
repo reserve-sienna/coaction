@@ -1,27 +1,27 @@
-$background-color: #fce9dc;
-$secondary-color: #4F9EE5;
-$button-color-new: #4F9EE5;
-$button-color-doing: #FF9D40;
-$button-color-done: #CC5314;
+
+$square-font: 'Inconsolata';
 
 body {
-  background: $background-color;
+  background: url(http://images.fineartamerica.com/images-medium-large-5/sepia-sunrise-the-creative-minds-art-and-photography.jpg) no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
 }
 
 .tasks-wrapper {
+  box-sizing: border-box;
   padding: 1em 2em 2em 2em;
   margin: 0 auto;
   width: 100%;
-  // background: url(http://p1.pichost.me/i/54/1777610.jpg);
-  background-color: #d1c5c5;
   background-size: cover;
+  font-family: $square-font;
+  color: white;
+
 
   h3 {
     padding-bottom: .5em;
     margin: 0;
   }
-
-  }
+}
 
 .add-task-button {
   color: white;
@@ -40,12 +40,12 @@ body {
 }
 
 .tasks-ul {
-  height: 75vh;
+  max-width: 85%;
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
 }
 
 nav {
@@ -60,63 +60,54 @@ nav {
     font-size: 2.3em;
     float: right;
     margin-right: 2em;
-    margin-top: .2em;
   }
 
 }
 
 .task-li {
-  // border: 1px solid black;
-  width: 14em;
-  padding: 1em;
-  margin: .5em 3em .5em .5em;
-  border-radius: .2em;
+  width: 13em;
+  height: 13em;
+  border-radius: .3em;
   position: relative;
-  background-color: #eef1ec;
+  background-color: rgba(0, 0 , 0, .3);
   min-height: 3em;
+  margin: .3em;
 }
 
 .task-title {
   font-size: 1.1em;
-  position: absolute;
-  top: 15px;
-  left: 60%;
-  transform: translate(-50%);
-  white-space: nowrap;
+  padding: .8em 0 .5em .8em;
+  color: white;
 }
 
 
 .color-box {
   position: absolute;
   left: 0;
-  top: 0;
   bottom: 0;
-  width: 28%;
-  border-right: 1px solid black;
+  right: 0;
+  width: 100%;
   background: url(http://cache.desktopnexus.com/thumbnails/1406631-bigthumbnail.jpg);
 
 
   button {
-    display: block;
+    height: 2rem;
+    padding: 0;
     margin: 0;
-    height: 33.33%;
-    width: 100%;
+    width: 30%;
     cursor: pointer;
-    font-size: .7em;
-    // border: 1px solid black;
-    border-radius: .1em;
+    font-size: .5em;
     outline: none;
+    opacity: .8;
   }
 
-  .active {
-     margin-left: -15px;
-    //  border: 2px solid yellow;
-     border-radius: .3em;
+ .active {
+   font-size: 2em;
   }
 }
 
+
 .new-task-button {
-  display: inline-block;
   background: $button-color-new;
 
 }
@@ -130,12 +121,10 @@ nav {
 }
 
 .date {
-  font-size: .75em;
+  font-size: .94em;
   font-weight: 600;
-  position: absolute;
-  bottom: 15px;
-  left: 60%;
-  transform: translate(-50%);
+  color: white;
+  margin-left: 2em;
 }
 
 .edit, .status {
@@ -145,17 +134,18 @@ nav {
 .remove-button {
   float: right;
   background: none;
-  color: black;
-  margin-top: -35px;
-  margin-right: -13px;
+  color: white;
+  margin-top: -60px;
 }
 
-.new-task-create-button {
-  background-color: none;
-  color: brown;
-}
+.todo {
+  background-color: $button-color-new;
+  }
 
-// .edit {
-//   background: none;
-//   font-family: coaction;
-// }
+.doing {
+  background-color:$button-color-doing;
+  }
+
+.done {
+  background-color:$button-color-done;
+  }

@@ -36,14 +36,16 @@ td {
 }
 
 input, textarea {
+  margin-top: 1em;
   font-size: 1em;
   border: 1px solid $input-border-color;
   padding: 0.25em;
+  border-radius: .3em;
+  height: 1.8em;
 }
 
 button {
   display: inline-block;
-  padding: 0.25em 0.75em;
   border: 0;
   background: $alt-accent-bg;
   color: $alt-accent-fg;

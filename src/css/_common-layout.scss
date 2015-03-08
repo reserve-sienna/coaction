@@ -29,6 +29,7 @@
 .main-nav {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   list-style: none;
   // background: #7d3800;
   background: #352D08;
@@ -59,7 +60,7 @@
 }
 
 .main-nav-link.active {
-  background: #4d5196;
+  background: #CC5314;
 }
 
 .title {

@@ -12,7 +12,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', function($location, StringUtil) {
+  ['$location', 'StringUtil', 'userService', function($location, StringUtil, userService) {
     var self = this;
 
     self.isActive = function (path) {
@@ -22,6 +22,14 @@ app.controller('MainNavCtrl',
       }
 
       return StringUtil.startsWith($location.path(), path);
+    };
+
+    self.logOutUser = function () {
+      userService.logOutUser().then(self.goToLogIn);
+    };
+
+    self.goToLogIn = function () {
+      $location.path('/login');
     };
   }]);
 
@@ -151,8 +159,9 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
         return currentUser;
       },
 
-      logOutUser: function (id) {
-      return get('/api/logout');
+
+      logOutUser: function () {
+      return post('/api/logout');
       },
 
       logInUser: function (user) {
@@ -207,16 +216,31 @@ app.config(['$routeProvider', function($routeProvider) {
       self.tasks.splice(i, 1);
       break;
       }
-    }
-  }).catch(function () {
-    alert('failed to delete');
-  });
+    }).catch(function () {
+      alert('failed to delete');
+    });
   };
 
-  self.updateTask = function (task, tabStatus) {
-    task.status = tabStatus;
-    tasksService.updateTask(task.id, task);
-  };
+    self.updateTask = function (task, tabStatus) {
+      task.status = tabStatus;
+      tasksService.updateTask(task.id, task);
+    };
+
+    self.className = function (task) {
+      var className = 'task-title';
+
+      if (task.status === 'new') {
+        className += ' todo';
+      }
+      else if (task.status === 'doing') {
+        className += ' doing';
+      }
+      else {
+        className += ' done';
+      }
+      return className;
+    };
+
 }]);
 
 app.config(['$routeProvider', function($routeProvider) {

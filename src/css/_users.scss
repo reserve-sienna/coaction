@@ -9,40 +9,34 @@
   height: 100vh;
   position: relative;
 
+  p {
+    color: white;
+    font-style: italic;
+  }
+
   input {
     margin: .55em auto;
     height: 1.6em;
     padding: .5em;
-    // margin: .55em;
     display: block;
     border-radius: .3em;
 
   }
 
   form {
-    margin: 4em auto;
-    width: 40%;
-    height: 25em;
-    // left: 50%;
-    // transform:translate(-50%);
-  }
+    position: relative;
+    padding: 0em 3em;
+    margin: 5em auto;
+    max-width: 25%;
+    height: 26em;
+    border-radius: .3em;
+    background-color: rgba(0,0,0,0.5);
 
-  button {
-    margin-top: 1em;
-    width: 10em;
-    position: absolute;
-    height: 2.5em;
-    border-radius: .2em;
-    left: 50%;
-    transform:translate(-50%);
-    opacity: .7;
-    background-color: #501509;
-  }
+}
 
   h2 {
     color: white;
   }
-
 
 }
 
@@ -64,9 +58,23 @@
   text-align: center;
   height: 100vh;
   position: relative;
-
-
-
-
-
 }
+
+.create-user-button  {
+    width: 13em;
+    position: absolute;
+    height: 2.5em;
+    border-radius: .2em;
+    left: 50%;
+    transform:translate(-50%);
+    opacity: .7;
+    background-color: #501509;
+    bottom: 25px;
+    cursor: pointer;
+    background-color:rgba(204, 83, 20, 1)
+  }
+
+  .create-user-button:hover {
+    background-color: #501509;
+
+  }

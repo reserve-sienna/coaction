@@ -82,13 +82,15 @@ td {
   padding: 0.25em 0.5em; }
 
 input, textarea {
+  margin-top: 1em;
   font-size: 1em;
   border: 1px solid #DDD;
-  padding: 0.25em; }
+  padding: 0.25em;
+  border-radius: .3em;
+  height: 1.8em; }
 
 button {
   display: inline-block;
-  padding: 0.25em 0.75em;
   border: 0;
   background: #501509;
   color: white;
@@ -119,6 +121,9 @@ button {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   list-style: none;
   background: #352D08;
   color: #FFF;
@@ -138,137 +143,10 @@ button {
   color: white; }
 
 .main-nav-link.active {
-  background: #4d5196; }
+  background: #CC5314; }
 
 .title {
   font-family: 'Syncopate', sans-serif; }
-
-body {
-  background: #fce9dc; }
-
-.tasks-wrapper {
-  padding: 1em 2em 2em 2em;
-  margin: 0 auto;
-  width: 100%;
-  background-color: #d1c5c5;
-  background-size: cover; }
-  .tasks-wrapper h3 {
-    padding-bottom: .5em;
-    margin: 0; }
-
-.add-task-button {
-  color: white;
-  margin-top: 3px; }
-
-.new-task-wrap {
-  margin: 2em; }
-
-.tasks-nav {
-  width: 100%;
-  text-align: center;
-  background-color: #41370A;
-  padding: .3em 0; }
-
-.tasks-ul {
-  height: 75vh;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center; }
-
-nav h1 {
-  display: inline-block;
-  color: white;
-  font-size: 1.3em;
-  letter-spacing: .1em; }
-nav a {
-  font-size: 2.3em;
-  float: right;
-  margin-right: 2em;
-  margin-top: .2em; }
-
-.task-li {
-  width: 14em;
-  padding: 1em;
-  margin: .5em 3em .5em .5em;
-  border-radius: .2em;
-  position: relative;
-  background-color: #eef1ec;
-  min-height: 3em; }
-
-.task-title {
-  font-size: 1.1em;
-  position: absolute;
-  top: 15px;
-  left: 60%;
-  -webkit-transform: translate(-50%);
-  transform: translate(-50%);
-  white-space: nowrap; }
-
-.color-box {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 28%;
-  border-right: 1px solid black;
-  background: url(http://cache.desktopnexus.com/thumbnails/1406631-bigthumbnail.jpg); }
-  .color-box button {
-    display: block;
-    margin: 0;
-    height: 33.33%;
-    width: 100%;
-    cursor: pointer;
-    font-size: .7em;
-    border-radius: .1em;
-    outline: none; }
-  .color-box .active {
-    margin-left: -15px;
-    border-radius: .3em; }
-
-.new-task-button {
-  display: inline-block;
-  background: #4F9EE5; }
-
-.doing-task-button {
-  background: #FF9D40; }
-
-.done-task-button {
-  background: #CC5314; }
-
-.date {
-  font-size: .75em;
-  font-weight: 600;
-  position: absolute;
-  bottom: 15px;
-  left: 60%;
-  -webkit-transform: translate(-50%);
-  transform: translate(-50%); }
-
-.edit, .status {
-  display: inline-block; }
-
-.remove-button {
-  float: right;
-  background: none;
-  color: black;
-  margin-top: -35px;
-  margin-right: -13px; }
-
-.new-task-create-button {
-  background-color: none;
-  color: brown; }
 
 .create-wrapper, .login-wrapper {
   width: 100%;
@@ -285,6 +163,9 @@ nav a {
   text-align: center;
   height: 100vh;
   position: relative; }
+  .create-wrapper p, .login-wrapper p {
+    color: white;
+    font-style: italic; }
   .create-wrapper input, .login-wrapper input {
     margin: .55em auto;
     height: 1.6em;
@@ -292,20 +173,13 @@ nav a {
     display: block;
     border-radius: .3em; }
   .create-wrapper form, .login-wrapper form {
-    margin: 4em auto;
-    width: 40%;
-    height: 25em; }
-  .create-wrapper button, .login-wrapper button {
-    margin-top: 1em;
-    width: 10em;
-    position: absolute;
-    height: 2.5em;
-    border-radius: .2em;
-    left: 50%;
-    -webkit-transform: translate(-50%);
-    transform: translate(-50%);
-    opacity: .7;
-    background-color: #501509; }
+    position: relative;
+    padding: 0em 3em;
+    margin: 5em auto;
+    max-width: 25%;
+    height: 26em;
+    border-radius: .3em;
+    background-color: rgba(0, 0, 0, 0.5); }
   .create-wrapper h2, .login-wrapper h2 {
     color: white; }
 
@@ -330,3 +204,142 @@ nav a {
   text-align: center;
   height: 100vh;
   position: relative; }
+
+.create-user-button {
+  width: 13em;
+  position: absolute;
+  height: 2.5em;
+  border-radius: .2em;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+  opacity: .7;
+  background-color: #501509;
+  bottom: 25px;
+  cursor: pointer;
+  background-color: #cc5314; }
+
+.create-user-button:hover {
+  background-color: #501509; }
+
+body {
+  background: url(http://images.fineartamerica.com/images-medium-large-5/sepia-sunrise-the-creative-minds-art-and-photography.jpg) no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh; }
+
+.tasks-wrapper {
+  box-sizing: border-box;
+  padding: 1em 2em 2em 2em;
+  margin: 0 auto;
+  width: 100%;
+  background-size: cover;
+  font-family: 'Inconsolata';
+  color: white; }
+  .tasks-wrapper h3 {
+    padding-bottom: .5em;
+    margin: 0; }
+
+.add-task-button {
+  color: white;
+  margin-top: 3px; }
+
+.new-task-wrap {
+  margin: 2em; }
+
+.tasks-nav {
+  width: 100%;
+  text-align: center;
+  background-color: #41370A;
+  padding: .3em 0; }
+
+.tasks-ul {
+  max-width: 85%;
+  margin: 0 auto;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+nav h1 {
+  display: inline-block;
+  color: white;
+  font-size: 1.3em;
+  letter-spacing: .1em; }
+nav a {
+  font-size: 2.3em;
+  float: right;
+  margin-right: 2em; }
+
+.task-li {
+  width: 13em;
+  height: 13em;
+  border-radius: .3em;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.3);
+  min-height: 3em;
+  margin: .3em; }
+
+.task-title {
+  font-size: 1.1em;
+  padding: .8em 0 .5em .8em;
+  color: white; }
+
+.color-box {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background: url(http://cache.desktopnexus.com/thumbnails/1406631-bigthumbnail.jpg); }
+  .color-box button {
+    height: 2rem;
+    padding: 0;
+    margin: 0;
+    width: 30%;
+    cursor: pointer;
+    font-size: .5em;
+    outline: none;
+    opacity: .8; }
+  .color-box .active {
+    font-size: 2em; }
+
+.new-task-button {
+  background: rgba(80, 21, 9, 0.8); }
+
+.doing-task-button {
+  background: rgba(255, 157, 64, 0.8); }
+
+.done-task-button {
+  background: rgba(204, 83, 20, 0.8); }
+
+.date {
+  font-size: .94em;
+  font-weight: 600;
+  color: white;
+  margin-left: 2em; }
+
+.edit, .status {
+  display: inline-block; }
+
+.remove-button {
+  float: right;
+  background: none;
+  color: white;
+  margin-top: -60px; }
+
+.todo {
+  background-color: rgba(80, 21, 9, 0.8); }
+
+.doing {
+  background-color: rgba(255, 157, 64, 0.8); }
+
+.done {
+  background-color: rgba(204, 83, 20, 0.8); }

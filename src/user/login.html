@@ -2,8 +2,9 @@
   <div class="login-wrapper">
     <form  name="login" ng-submit="vm.logInUser()">
     <h2>Sign In</h2>
+      <p>Please enter your account credentials to sign in.</p>
       <input ng-model="vm.user.email" placeholder="email" required>
       <input type="password" ng-model="vm.user.password" placeholder="password">
-      <button>Submit LogIn</button>
+      <button class="create-user-button">Submit LogIn</button>
     </form>
   </div>

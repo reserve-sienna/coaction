@@ -45,6 +45,8 @@ Tasks can have:
   * What do they most want to see when logging in?
   * What other personas might there be? Managers? What would their landing page look like?
 
+  ng-class="{ todo: task.status==='new', doing: task.status==='doing', done: task.status==='done'}"
+
 ### Note about authentication
 
 Authentication should be done with cookie-based sessions. The cookies will have to be created through Flask, so there should be an API endpoint that logs in users.
