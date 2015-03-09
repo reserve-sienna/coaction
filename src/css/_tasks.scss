@@ -2,8 +2,8 @@
 $square-font: 'Inconsolata';
 
 body {
-  background: url(http://images.fineartamerica.com/images-medium-large-5/sepia-sunrise-the-creative-minds-art-and-photography.jpg) no-repeat center center fixed;
-  background-size: cover;
+  // background: url(http://images.fineartamerica.com/images-medium-large-5/sepia-sunrise-the-creative-minds-art-and-photography.jpg) no-repeat center center fixed;
+  // background-size: cover;
   height: 100vh;
 }
 
@@ -35,7 +35,8 @@ body {
 .tasks-nav {
   width: 100%;
   text-align: center;
-  background-color: #41370A;
+  // background-color: #41370A;
+  background-color: #c8c0b3;
   padding: .3em 0;
 }
 
@@ -67,7 +68,6 @@ nav {
 .task-li {
   width: 13em;
   height: 13em;
-  border-radius: .3em;
   position: relative;
   background-color: rgba(0, 0 , 0, .3);
   min-height: 3em;
@@ -78,6 +78,7 @@ nav {
   font-size: 1.1em;
   padding: .8em 0 .5em .8em;
   color: white;
+  position: relative;
 }
 
 
@@ -123,7 +124,7 @@ nav {
   font-size: .94em;
   font-weight: 600;
   color: white;
-  margin-left: 2em;
+  margin-left: 1em;
 }
 
 .edit, .status {
@@ -131,10 +132,12 @@ nav {
 }
 
 .remove-button {
-  float: right;
+  position: absolute;
   background: none;
   color: white;
-  margin-top: -65px;
+  right: 0;
+  top: 0;
+
 }
 
 .todo {
@@ -150,13 +153,22 @@ nav {
   }
 
 .filter-wrapper {
+  display:inline-block;
+  margin-left: 15%;
+  height: 100%;
+
   button {
+    display: inline-block;
     width: 6em;
     margin: 0;
     padding: .5em;
-    float: right;
     outline: none;
+    height: 100%;
   }
+}
+
+.all-task-filter {
+  background-color: #224f75;
 }
 
 .new-task-filter {
@@ -169,4 +181,18 @@ nav {
 
 .done-task-filter {
   background-color: $button-color-done;
+}
+
+.assign-users {
+  background-color: #224f75;
+  display:inline-block;
+  padding: .5em;
+  float: right;
+  cursor: pointer;
+
+}
+
+.filter-text {
+  margin-right: 1.5em;
+  color: white;
 }

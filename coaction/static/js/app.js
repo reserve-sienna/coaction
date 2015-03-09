@@ -265,6 +265,24 @@ app.config(['$routeProvider', function($routeProvider) {
   self.tasks = tasks;
   self.currentUser = currentUser;
   self.users = users;
+  self.assignForm = 'false';
+
+  self.assignForm = function() {
+    return assignForm = 'true';
+  };
+
+  self.filters = function (task) {
+    if (task.status === 'new') {
+    return tasks;
+    }
+    else if (task.status === 'doing') {
+    return tasks;
+    }
+
+    else if (task.status === 'done') {
+    return tasks;
+    }
+  };
 
 
   self.removeTask = function (id) {
@@ -290,6 +308,7 @@ app.config(['$routeProvider', function($routeProvider) {
             var userVar = users[i].name;
             if (assigned.trim() === userVar.trim()) {
             tasksService.assignTask(taskId, self.users[i].id, self.users[i].id);
+            self.userinfo = '';
             }
           }
     };

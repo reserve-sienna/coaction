@@ -3,34 +3,37 @@
   <nav class = "tasks-nav">
     <h1 class="task-header">TASKS</h1>
     <a class="add-task-button" href="#/tasks/new">+</a>
+    <div class="filter-wrapper">
+      <!-- <span class="filter-text">Filter:</span>
+      <button ng-click="filters.tasks= {status}" class="all-task-filter">All</button>
+      <button ng-click="filters.tasks = {status: 'new'}"  class="new-task-filter">ToDo</button>
+      <button ng-click="filters.tasks = {status:'doing'}"  class="doing-task-filter">Doing</button>
+      <button ng-click="filters.tasks = {status: 'done'}" class="done-task-filter">Done</button> -->
+    </div>
   </nav>
 
   <div class="tasks-wrapper">
 
 
-    <div class="filter-wrapper">
-      <button  class="doing-task-filter">Doing</button>
-      <button  class="done-task-filter">Done</button>
-      <button class="new-task-filter">ToDo</button>
-    </div>
 
     <h3 ng-show="vm.currentUser.name">Hello, {{vm.currentUser.name}}</h3>
     <ul class="tasks-ul">
-      <li class="task-li" ng-repeat="task in vm.tasks | orderBy: task.status">
+      <li class="task-li" ng-repeat="task in vm.tasks | filter:filters">
         <div class="task-title" ng-class="vm.className(task)">
           {{task.title | ellipsis: 16}}
+        <button class="remove-button" ng-click="vm.removeTask(task.id)">x</button>
         </div>
         <span class="date">
           {{task.due_date | date:'EEEE, MMM d'}}
         </span>
 
-        <button class="users" ng-click="vm.getUsers()">
-          +
+        <button class="assign-users" ng-click="show=true">
+          ASSIGN
         </button>
 
         <div class="user-list">
 
-          <form ng-submit="vm.assignTask(task.id)">
+          <form ng-show="show" ng-submit="vm.assignTask(task.id); show=false;">
             <select ng-model="vm.userinfo">
               <option ng-repeat="user in vm.users">
                       {{ user.name }}
@@ -40,7 +43,6 @@
           </form>
         </div>
 
-        <button class="remove-button" ng-click="vm.removeTask(task.id)">x</button>
         <div class="color-box">
           <button ng-click="vm.updateTask(task, 'new')"  class="new-task-button">ToDo</button>
           <button ng-click="vm.updateTask(task, 'doing')" class="doing-task-button">Doing</button>

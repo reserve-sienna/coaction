@@ -125,8 +125,8 @@ button {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   list-style: none;
-  background: #352D08;
-  color: #FFF;
+  background: #e7e7e7;
+  color: #501509;
   padding: 0 2em; }
   .main-nav .title {
     padding-top: 1em; }
@@ -172,12 +172,12 @@ button {
     padding: .5em;
     display: block;
     border-radius: .3em; }
-  .create-wrapper form, .login-wrapper form {
+  .create-wrapper .user-form, .login-wrapper .user-form {
     position: relative;
     padding: 0em 3em;
     margin: 5em auto;
     max-width: 25%;
-    height: 26em;
+    min-height: 26em;
     border-radius: .3em;
     background-color: rgba(0, 0, 0, 0.5); }
   .create-wrapper h2, .login-wrapper h2 {
@@ -202,7 +202,6 @@ button {
   -ms-flex-pack: justify;
   justify-content: space-between;
   text-align: center;
-  height: 100vh;
   position: relative; }
 
 .create-user-button {
@@ -222,9 +221,31 @@ button {
 .create-user-button:hover {
   background-color: #501509; }
 
+@media (max-width: 725px) {
+  .create-wrapper, .login-wrapper {
+    display: inline-block;
+    padding: 0; }
+    .create-wrapper button, .login-wrapper button {
+      display: block; }
+  .user-form {
+    height: 100vh;
+    max-width: 100%;
+    min-width: 80%;
+    margin: 0 auto !important; }
+    .user-form h2 {
+      margin: 0;
+      padding-top: 2.5em; }
+  .create-user-button {
+    display: block;
+    bottom: 0px;
+    position: relative;
+    margin-top: 1.5em; }
+  .user-partial {
+    display: inline-block;
+    padding: 0;
+    margin: 0; } }
+
 body {
-  background: url(http://images.fineartamerica.com/images-medium-large-5/sepia-sunrise-the-creative-minds-art-and-photography.jpg) no-repeat center center fixed;
-  background-size: cover;
   height: 100vh; }
 
 .tasks-wrapper {
@@ -249,7 +270,7 @@ body {
 .tasks-nav {
   width: 100%;
   text-align: center;
-  background-color: #41370A;
+  background-color: #c8c0b3;
   padding: .3em 0; }
 
 .tasks-ul {
@@ -281,7 +302,6 @@ nav a {
 .task-li {
   width: 13em;
   height: 13em;
-  border-radius: .3em;
   position: relative;
   background-color: rgba(0, 0, 0, 0.3);
   min-height: 3em;
@@ -290,7 +310,8 @@ nav a {
 .task-title {
   font-size: 1.1em;
   padding: .8em 0 .5em .8em;
-  color: white; }
+  color: white;
+  position: relative; }
 
 .color-box {
   position: absolute;
@@ -323,16 +344,17 @@ nav a {
   font-size: .94em;
   font-weight: 600;
   color: white;
-  margin-left: 2em; }
+  margin-left: 1em; }
 
 .edit, .status {
   display: inline-block; }
 
 .remove-button {
-  float: right;
+  position: absolute;
   background: none;
   color: white;
-  margin-top: -65px; }
+  right: 0;
+  top: 0; }
 
 .todo {
   background-color: rgba(80, 21, 9, 0.8); }
@@ -343,12 +365,20 @@ nav a {
 .done {
   background-color: rgba(204, 83, 20, 0.8); }
 
-.filter-wrapper button {
-  width: 6em;
-  margin: 0;
-  padding: .5em;
-  float: right;
-  outline: none; }
+.filter-wrapper {
+  display: inline-block;
+  margin-left: 15%;
+  height: 100%; }
+  .filter-wrapper button {
+    display: inline-block;
+    width: 6em;
+    margin: 0;
+    padding: .5em;
+    outline: none;
+    height: 100%; }
+
+.all-task-filter {
+  background-color: #224f75; }
 
 .new-task-filter {
   background-color: rgba(80, 21, 9, 0.8); }
@@ -358,3 +388,14 @@ nav a {
 
 .done-task-filter {
   background-color: rgba(204, 83, 20, 0.8); }
+
+.assign-users {
+  background-color: #224f75;
+  display: inline-block;
+  padding: .5em;
+  float: right;
+  cursor: pointer; }
+
+.filter-text {
+  margin-right: 1.5em;
+  color: white; }
