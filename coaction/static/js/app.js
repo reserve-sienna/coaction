@@ -9,6 +9,18 @@ app.config(['$routeProvider', function ($routeProvider) {
     controllerAs: 'vm',
     templateUrl: 'static/errors/404/error-404.html'
   });
+}])
+
+//implement a auth check before hitting a route and/or a route controller
+.run(['$rootScope', '$location', 'userService', function($rootScope, $location, userService) {
+  $rootScope.$on( "$routeChangeError", function(event, current, previous, rejection) {
+    // check if the route error is due to restricted access attempt on tasks view
+    if(angular.isDefined(rejection) && rejection.notLoggedIn) {
+      $location.path('/login');
+    }
+
+  });
+
 }]);
 
 app.controller('MainNavCtrl',
@@ -124,7 +136,7 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
   };
 }]);
 
-app.factory('userService', ['$http', '$log', function($http, $log) {
+app.factory('userService', ['$http', '$log', '$q', function($http, $log, $q) {
 
   //currentUser will hold the returned logged in user object
   var currentUser = {};
@@ -159,7 +171,31 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
       },
 
       getCurrentUser: function() {
-        return currentUser;
+        var deferred = $q.defer();
+        // check if we already have the current user in memory
+        if( angular.equals({}, currentUser) ) {
+          // not in memory, see if the user has a valid session cookie
+           get('/api/authenticated').then(function(user){
+            if(user) {
+              currentUser = user;
+              deferred.resolve(currentUser);
+            } else {
+              // user was not logged in
+              deferred.resolve(false);
+            }
+
+          }, function(error){
+            // something just went wrong here
+            deferred.resolve(error);
+
+          });
+
+        } else {
+          // user was already in memory
+          deferred.resolve(currentUser);
+        }
+
+        return deferred.promise;
       },
 
       getUsers: function () {
@@ -169,7 +205,8 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
       },
 
       logOutUser: function () {
-      return post('/api/logout');
+        currentUser = {};
+        return post('/api/logout');
       },
 
       logInUser: function (user) {
@@ -198,11 +235,19 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'TasksCtrl',
     controllerAs: 'vm',
     resolve: {
+      currentUser: ['userService', '$q', function(userService, $q){
+        var deferred = $q.defer();
+         userService.getCurrentUser().then(function(user){
+          if(user) {
+            deferred.resolve(user);
+          } else {
+            deferred.reject({notLoggedIn: true});
+          }
+        });
+        return deferred.promise;
+      }],
       tasks: ['tasksService', function (tasksService){
         return tasksService.getTasks();
-      }],
-      currentUser: ['userService', function(userService){
-        return userService.getCurrentUser();
       }],
       users: ['userService', function(userService) {
         return userService.getUsers();
@@ -322,11 +367,25 @@ app.config(['$routeProvider', function($routeProvider) {
 .controller('UserCtrl', ['$location', 'User', 'userService', function ($location, User, userService) {
 
   var self = this;
+
   self.user = User();
   // tasks.status = "new";
 
+  //holds any error messages
+  self.errors = {};
+
   self.createUser = function () {
-    userService.createUser(self.user);
+    //reset error object for next request
+    self.errors = {};
+    userService.createUser(self.user).then(function(success){
+      $location.path('/login');
+
+    }, function(error){
+      // set the errors object for our view
+      self.errors = error.data;
+
+    });
+
     };
 
 
