@@ -10,6 +10,20 @@ from coaction import mail
 coaction = Blueprint("coaction", __name__, static_folder="./static")
 
 
+def success_response(data):
+    return jsonify({"status": "success", "data": data})
+
+
+def failure_response(reason, code):
+    return jsonify({"status": "fail", "data": {"title": reason}}), code
+
+task_schema = TaskSchema()
+tasks_schema = TaskSchema(many=True)
+basic_user_schema = UserSchema(exclude=('owned_tasks', 'assigned_tasks', ))
+basic_users_schema = UserSchema(many=True, exclude=('owned_tasks', 'assigned_tasks', ))
+user_owned_schema = UserSchema(exclude=("assigned_tasks", ))
+user_assigned_schema = UserSchema(exclude=("owned_tasks", ))
+user_schema = UserSchema()
 
 
 
@@ -24,12 +38,10 @@ def index():
 def tasks():
     tasks = Task.query.all()
     if tasks:
-        serializer = TaskSchema(many=True)
-        result = serializer.dump(tasks)
-        return jsonify({"status": "success",
-                        "data": result.data})
+        result = tasks_schema.dump(tasks)
+        return success_response(result.data)
     else:
-        return jsonify({"status": "fail", "data": {"title": "There are no tasks  "}}), 404
+        return failure_response("There are no tasks", 404)
 
 
 # Creates one task adding it to the database.
@@ -46,12 +58,10 @@ def add_task():
         db.session.add(task)
         user.assigned_tasks.append(task)
         db.session.commit()
-        serializer = TaskSchema()
-        result = serializer.dump(task)
-        return jsonify({"status": "success",
-                        "data": result.data})
+        result = task_schema.dump(task)
+        return success_response(result.data)
     else:
-        return jsonify({"status": "fail", "data": {"title": "Could not insert."}}), 400
+        return failure_response("Could not insert", 400)
 
 
 # Gets all tasks that are incomplete.
@@ -59,25 +69,20 @@ def add_task():
 def get_incomplete_tasks():
     tasks = Task.query.filter(Task.status != "Done").order_by(Task.due_date).all()
     if tasks:
-        serializer = TaskSchema(many=True)
-        result = serializer.dump(tasks)
-        return jsonify({"status": "success",
-                        "data": result.data})
+        result = tasks_schema.dump(tasks)
+        return success_response(result.data)
     else:
-        return jsonify({"status": "fail", "data": {"title": "There are no incomplete tasks  "}}), 404
-
+        return failure_response("There are no incomplete tasks", 404)
 
 # Gets a specific task with the task id.
 @coaction.route("/api/task/<int:id>", methods=["GET"])
 def get_task(id):
     task = Task.query.get(id)
     if task:
-        serializer = TaskSchema()
-        result = serializer.dump(task)
-        return jsonify({"status": "success",
-                        "data": result.data})
+        result = task_schema.dump(task)
+        return success_response(result.data)
     else:
-        return jsonify({"status": "fail", "data": {"title": "Could not find task."}}), 404
+        return failure_response("Could not find task.", 404)
 
 
 # Updates a task with task ID.
@@ -90,14 +95,12 @@ def update_task(id):
         if form.validate():
             form.populate_obj(task)
             db.session.commit()
-            serializer = TaskSchema()
-            result = serializer.dump(task)
-            return jsonify({"status": "success",
-                            "data": result.data})
+            result = task_schema.dump(task)
+            return success_response(result.data)
         else:
-            return jsonify({"status": "fail", "data": {"title": "Could not update."}}), 400
+            return failure_response("Could not update", 400)
     else:
-        return jsonify({"status": "fail", "data": {"title": "Data not found."}}), 404
+        return failure_response("Data not found", 404)
 
 
 # Deletes a task with task ID.
@@ -107,12 +110,10 @@ def delete_task(id):
     if task:
         db.session.delete(task)
         db.session.commit()
-        serializer = TaskSchema()
-        result = serializer.dump(task)
-        return jsonify({"status": "success",
-                        "data": result.data})
+        result = task_schema.dump(task)
+        return success_response(result.data)
     else:
-        return jsonify({"status": "fail", "data": {"title": "Could not delete."}}), 400
+        return failure_response("Could not delete.", 400)
 
 
 # Assigns a task to a user.
@@ -125,14 +126,12 @@ def assign_task(id, user_id):
             user.assigned_tasks.append(task)
             db.session.commit()
             print(task.assigned)
-            serializer = TaskSchema()
-            result = serializer.dump(task)
-            return jsonify({"status": "success",
-                            "data": result.data})
+            result = task_schema.dump(task)
+            return success_response(result.data)
         else:
-            return jsonify({"status": "fail", "data": {"title": "Task not found."}}), 404
+            return failure_response("Task not found", 404)
     else:
-        return jsonify({"status": "fail", "data": {"title": "User not found."}}), 404
+        return failure_response("User not found.", 404)
 
 
 # Show all tasks owned by a user.
@@ -140,13 +139,10 @@ def assign_task(id, user_id):
 def get_owned_tasks(user_id):
     user = User.query.get(user_id)
     if current_user.id == user_id:
-            serializer = UserSchema(exclude=('assigned_tasks', ))
-            result = serializer.dump(user)
-            return jsonify({"status": "success",
-                            "data": result.data})
+            result = user_owned_schema.dump(user)
+            return success_response(result.data)
     else:
-        return jsonify({"status": "fail", "data": {"title": "This user is not authorized."}}), 401
-
+        return failure_response("This user is not authorized.", 401)
 
 
 # Show all tasks assuigned to a user.
@@ -156,16 +152,12 @@ def get_assigned_tasks(user_id):
     tasks = user.assigned_tasks
     if current_user.id == user_id:
         if tasks:
-            serializer = UserSchema(exclude=('owned_tasks', ))
-            result = serializer.dump(user)
-            return jsonify({"status": "success",
-                            "data": result.data})
+            result = user_assigned_schema.dump(user)
+            return success_response(result.data)
         else:
-            return jsonify({"status": "fail", "data": {"title": "There are no tasks  "}}), 404
+            return failure_response("There are no tasks", 404)
     else:
-        return jsonify({"status": "fail", "data": {"title": "This user is not authorized."}}), 401
-
-
+        return failure_response("This user is not authorized.", 401)
 
 
 # Logs in the user to the app.
@@ -177,10 +169,8 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user)
-            serializer = UserSchema(exclude=('owned_tasks', 'assigned_tasks', ))
-            result = serializer.dump(user)
-            return jsonify({"status": "success",
-                            "data": result.data})
+            result = basic_user_schema.dump(user)
+            return success_response(result.data)
         else:
             message = Message(
                               "Hello",
@@ -190,9 +180,9 @@ def login():
             message.body = "Hi, you need to create an account." \
                            " https://polar-escarpment-1079.herokuapp.com/#/users"
             mail.send(message)
-            return jsonify({"status": "fail", "data": {"title": "Could not login user."}}), 401
+            return failure_response("Could not login user.", 401)
     else:
-        return jsonify({"status": "fail", "data": {"title": "Invalid data"}}), 400
+        return failure_response("Invalid data", 400)
 
 
 # Logs out a user from the app.
@@ -207,24 +197,21 @@ def logout():
 def get_users():
     users = User.query.all()
     if users:
-        serializer = UserSchema(many=True, exclude=('owned_tasks', ))
-        result = serializer.dump(users)
-        return jsonify({"status": "success",
-                        "data": result.data})
+        result = basic_users_schema.dump(users)
+        return success_response(result.data)
     else:
-        return jsonify({"status": "fail", "data": {"title": "There are no users  "}}), 404
+        return failure_response("There are no users", 404)
 
 
 @coaction.route("/api/authenticated")
 def authenticated():
     if current_user.is_active():
         user = User.query.get(current_user.id)
-        serializer = UserSchema(exclude=('owned_tasks', 'assigned_tasks', ))
-        result = serializer.dump(user)
-        return jsonify({"status": "success",
-                        "data": result.data})
+        result = basic_user_schema.dump(user)
+        return success_response(result.data)
     else:
         return jsonify({"status": "fail"})
+
 
 # Adds a user.
 @coaction.route("/api/users", methods=["POST"])
@@ -240,12 +227,10 @@ def create_user():
             db.session.add(user)
             db.session.commit()
             login_user(user)
-            serializer = UserSchema()
-            result = serializer.dump(user)
-            return jsonify({"status": "success",
-                            "data": result.data})
+            result = user_schema.dump(user)
+            return success_response(result.data)
     else:
-        return jsonify({"status": "fail", "data": {"title": "Invalid data"}}), 400
+        return failure_response("Invalid data.", 400)
 
 
 
