@@ -4,11 +4,19 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'TasksCtrl',
     controllerAs: 'vm',
     resolve: {
+      currentUser: ['userService', '$q', function(userService, $q){
+        var deferred = $q.defer();
+         userService.getCurrentUser().then(function(user){
+          if(user) {
+            deferred.resolve(user);
+          } else {
+            deferred.reject({notLoggedIn: true});
+          }
+        });
+        return deferred.promise;
+      }],
       tasks: ['tasksService', function (tasksService){
         return tasksService.getTasks();
-      }],
-      currentUser: ['userService', function(userService){
-        return userService.getCurrentUser();
       }],
       users: ['userService', function(userService) {
         return userService.getUsers();

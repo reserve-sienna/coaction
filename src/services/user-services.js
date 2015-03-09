@@ -1,4 +1,4 @@
-app.factory('userService', ['$http', '$log', function($http, $log) {
+app.factory('userService', ['$http', '$log', '$q', function($http, $log, $q) {
 
   //currentUser will hold the returned logged in user object
   var currentUser = {};
@@ -33,7 +33,31 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
       },
 
       getCurrentUser: function() {
-        return currentUser;
+        var deferred = $q.defer();
+        // check if we already have the current user in memory
+        if( angular.equals({}, currentUser) ) {
+          // not in memory, see if the user has a valid session cookie
+           get('/api/authenticated').then(function(user){
+            if(user) {
+              currentUser = user;
+              deferred.resolve(currentUser);
+            } else {
+              // user was not logged in
+              deferred.resolve(false);
+            }
+
+          }, function(error){
+            // something just went wrong here
+            deferred.resolve(error);
+
+          });
+
+        } else {
+          // user was already in memory
+          deferred.resolve(currentUser);
+        }
+
+        return deferred.promise;
       },
 
       getUsers: function () {
@@ -43,7 +67,8 @@ app.factory('userService', ['$http', '$log', function($http, $log) {
       },
 
       logOutUser: function () {
-      return post('/api/logout');
+        currentUser = {};
+        return post('/api/logout');
       },
 
       logInUser: function (user) {
