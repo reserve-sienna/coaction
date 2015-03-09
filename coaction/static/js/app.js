@@ -110,6 +110,7 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
   }
 
   return {
+
       getTasks: function () {
       return get('/api/tasks');
       },
@@ -122,8 +123,9 @@ app.factory('tasksService', ['$http', '$log', function($http, $log) {
       return post('/api/tasks', task);
       },
 
-      assignTask: function (taskId, userId) {
-      return put('/api/task/' + taskId + '/assign/' + userId);
+      assignTask: function (taskId, userId, userId) {
+      alert(taskId, userId);
+      return post('/api/task/' + taskId + '/assign/' + userId, userId);
       },
 
       removeTask: function (id) {
@@ -264,6 +266,7 @@ app.config(['$routeProvider', function($routeProvider) {
   self.currentUser = currentUser;
   self.users = users;
 
+
   self.removeTask = function (id) {
     tasksService.removeTask(id).then(function () {
     for (var i =0; i < self.tasks.length; ++i) {
@@ -281,9 +284,14 @@ app.config(['$routeProvider', function($routeProvider) {
     //   return userService.getUsers();
     // };
 
-    self.assignTask = function (usersladel) {
-      console.log(usersladel);
-      tasksService.assignTask(usersladel);
+    self.assignTask = function (taskId) {
+          var assigned = self.userinfo;
+          for (var i = 0; i < users.length; ++i) {
+            var userVar = users[i].name;
+            if (assigned.trim() === userVar.trim()) {
+            tasksService.assignTask(taskId, self.users[i].id, self.users[i].id);
+            }
+          }
     };
 
     self.updateTask = function (task, tabStatus) {
