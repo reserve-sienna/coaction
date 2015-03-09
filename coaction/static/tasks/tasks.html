@@ -29,14 +29,14 @@
         </button>
 
         <div class="user-list">
-          {{usersladel}}
-          <form ng-submit="vm.assignTask(usersladel)">
-            <select ng-model="usersladel">
+
+          <form ng-submit="vm.assignTask(task.id)">
+            <select ng-model="vm.userinfo">
               <option ng-repeat="user in vm.users">
-                   {{ user.id }}
+                      {{ user.name }}
               </option>
             </select>
-            <button>add that fool to a task son</button>
+            <button>assign user</button>
           </form>
         </div>
 
